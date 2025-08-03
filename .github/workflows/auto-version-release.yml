@@ -1,0 +1,21 @@
+name: auto-version-release
+on:
+  pull_request:
+    branches: [main] # pull request that target these branches.
+    types: [closed]
+
+concurrency:
+  group: release-group
+  cancel-in-progress: true
+
+run-name: ${{ github.actor }} run avr workflow-selector
+
+jobs:
+  selector: # trigger this on push to main and only when a PR merge.
+    uses: kohirens/version-release/.github/workflows/selector.yml@5.0.4
+    name: workflow-selector
+    secrets:
+      github_write_token: ${{ secrets.GH_WRITE_TOKEN }}
+    with:
+      committer_email: 619281+b01@users.noreply.github.com
+      committer_name: Khalifah K Shabazz

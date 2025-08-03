@@ -1,0 +1,8 @@
+# Directories
+# -----------
+/.idea/
+/kubernetes/samples/.vagrant/
+/kubernetes/samples/kubeadm-certs-txt/
+
+# Files
+# -----
