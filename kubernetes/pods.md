@@ -9,16 +9,18 @@ Pods are used in two main ways:
 * Run multiple containers that need to work together, but should be reserved
   for more advanced use cases.
 
-A POD spec required these top-level fields:
+A Pod spec requires these top-level fields:
 * `apiVersion` - can be `v1` or `apps\v1`.
-* `kind` - can be set to `Pod`.
-* `metadata` - is a dictionary which can only contain "name", and "labels",
-  labels can be a map with any keys you desire/need.
-* `spec` - is additional information pertaining to the object you indicated in
+* `kind` - set to `Pod` to specify its resource type.
+* `metadata` - a dictionary which can only contain "name", and "labels" fields,
+  "labels" can be a dictionary with any keys you desire/need.
+* `spec` - additional information pertaining to the object you indicated in
   the `kind` property, refer to documentation for what attributes to use per
-  object. For a POD we can use the property `containers` which is list/array,
-  each item in the list is a dictionary, so we can add a `name` and `image`
-  to set the nginx image for the container.
+  object. When kind is set to a [Pod] we can use the property `containers`
+  which is a list; each item in the list is a dictionary, so we can add a
+  `name` and `image` to set for a container in the Pod. Adding more than one
+  item to the container list will make it a multi-container Pod, which is a more
+  advanced use topic.
 
 ```yaml
 # pod-definition.yml
@@ -57,3 +59,7 @@ Display more info about pods.
 
 Quickly generate a Pod specification without deploying the Pod.
 `k run redis --image redis123 --dry-run=client -o yaml`
+
+---
+
+[Pod]: https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/
