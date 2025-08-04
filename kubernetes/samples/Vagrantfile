@@ -1,0 +1,116 @@
+# -*- mode: ruby -*-
+# vi:set ft=ruby sw=2 ts=2 sts=2:
+
+# "YES" - This adds a jump-box.
+# Override this by setting the environment variable ADD_JUMP_BOX=OFF to dynamically
+# turn off deploying a jump-box.
+ADD_JUMP_BOX = ENV['ADD_JUMP_BOX'] ? ENV['ADD_JUMP_BOX'] : "YES"
+
+# BOX_IMG = "ubuntu/jammy64"
+BOX_IMG = "b01/ubuntu-lts-noble-64-efi"
+BOX_VER = "0.1.1"
+
+BOOT_TIMEOUT_SEC = 180
+
+# Define the number of worker nodes.
+NUM_WORKER_NODES = 2
+
+# Network parameters for NAT mode
+VM_NETWORK_PREFIX = "192.168.56"
+
+JUMPER_NAME = "jump-box"
+JUMPER_IP = 10
+
+CONTROL_PLANE_NAME = "control-plane-01"
+CONTROL_PLANE_IP = 11
+
+NODE_NAME_PREFIX = 'worker-0'
+NODE_IP_START = 20
+
+# Host operating system detection
+module OS
+  def OS.windows?
+    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.mac?
+    (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.unix?
+    !OS.windows?
+  end
+
+  def OS.linux?
+    OS.unix? and not OS.mac?
+  end
+
+  def OS.jruby?
+    RUBY_ENGINE == "jruby"
+  end
+end
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://portal.cloud.hashicorp.com/vagrant/discover
+  # config.vm.box = "base"
+
+  config.vm.box = BOX_IMG
+  config.vm.box_version = BOX_VER
+  config.vm.boot_timeout = BOOT_TIMEOUT_SEC
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  config.vm.box_check_update = false
+
+  # Use an environment variable to dynamically turn off deploying a jump-box.
+  if ADD_JUMP_BOX == "YES"
+    # Provision a JumpBox
+    config.vm.define JUMPER_NAME do |node|
+      # Name shown in the GUI
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = JUMPER_NAME
+        vb.memory = 1024
+        vb.cpus = 1
+      end
+      node.vm.hostname = JUMPER_NAME
+      node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{JUMPER_IP}"
+    end
+  end
+
+  # Provision control-plane-01 Node
+  config.vm.define CONTROL_PLANE_NAME do |node|
+    # Name shown in the GUI
+    node.vm.provider "virtualbox" do |vb|
+      vb.name = CONTROL_PLANE_NAME
+      vb.memory = 2048
+      vb.cpus = 2
+    end
+    node.vm.hostname = CONTROL_PLANE_NAME
+    node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{CONTROL_PLANE_IP}"
+  end
+
+  # Provision Worker Nodes
+  # Note that i starts at 1 and not 0.
+  (1..NUM_WORKER_NODES).each do |i|
+    config.vm.define "#{NODE_NAME_PREFIX}#{i}" do |node|
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{NODE_NAME_PREFIX}#{i}"
+        vb.memory = 2048
+        vb.cpus = 1
+      end
+      node.vm.hostname = "#{NODE_NAME_PREFIX}#{i}"
+      # because i starts at 1 and not 0, the IP 192.168.56.<NODE_IP_START> will be skipped.
+      node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{NODE_IP_START + i}"
+    end
+  end
+end
