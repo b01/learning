@@ -83,3 +83,7 @@ Then there are more details about [Packaging the Box] you should review as well.
 [insecure key-pairs]: https://github.com/hashicorp/vagrant/tree/main/keys
 [Root Password: "vagrant"]: https://developer.hashicorp.com/vagrant/docs/boxes/base#root-password-vagrant
 [Packaging the Box]: https://developer.hashicorp.com/vagrant/docs/providers/virtualbox/boxes#packaging-the-box
+[Creating a Base Box]: https://developer.hashicorp.com/vagrant/docs/boxes/base
+[VirtualBox Base Boxes]: https://developer.hashicorp.com/vagrant/docs/providers/virtualbox/boxes
+[Default User Settings]: https://developer.hashicorp.com/vagrant/docs/boxes/base#default-user-settings
+[Make A New VM]: /virtual-machines/making-a-base-box.md
