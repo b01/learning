@@ -1,6 +1,7 @@
 # Learning: Kubernetes
 
 This covers Kubernetes overview, installation, and administration.
+
 ## Overview
 
 1. [Step 1 Take an Online Course](#step-1-take-an-online-course)
@@ -89,6 +90,10 @@ after some comprehension and practice, they should speed you up.
 They are also standard and quite useful for any kind of routine maintenance and
 configuration of a Linux box, and especially when troubleshooting a cluster.
 
+## Samples
+
+* [Local Storage Class Manifest]
+
 ---
 
 [Certified Kubernetes Administrator (CKA) Course]: https://github.com/kodekloudhub/certified-kubernetes-administrator-course?tab=readme-ov-file
@@ -97,3 +102,4 @@ configuration of a Linux box, and especially when troubleshooting a cluster.
 [Commands To Know]: /kubernetes/commands-to-know.md#commands-to-know
 [CKA Exam Guide v1.32]: /kubernetes/7.0-cka-exam-curriculum-v1.32.md
 [kubeadm Cluster Install]: /kubernetes/5.0-kubeadm-cluster-install.md
+[Local Storage Class Manifest]: /kubernetes/samples/sc-local.yml
