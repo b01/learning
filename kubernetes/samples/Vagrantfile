@@ -92,7 +92,7 @@ Vagrant.configure("2") do |config|
     node.vm.provider "virtualbox" do |vb|
       vb.name = CONTROL_PLANE_NAME
       vb.memory = 2048
-      vb.cpus = 2
+      vb.cpus = 1
     end
     node.vm.hostname = CONTROL_PLANE_NAME
     node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{CONTROL_PLANE_IP}"
