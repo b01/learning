@@ -11,8 +11,6 @@ BOX_VER = "0.1.1"
 
 BOOT_TIMEOUT_SEC = 180
 
-# Define the number of worker nodes.
-NUM_WORKER_NODES = 2
 
 # Network parameters for NAT mode
 VM_NETWORK_PREFIX = "192.168.56"
@@ -20,11 +18,16 @@ VM_NETWORK_PREFIX = "192.168.56"
 JUMPER_NAME = "jump-box"
 JUMPER_IP = 10
 
-CONTROL_PLANE_NAME = "control-plane-01"
-CONTROL_PLANE_IP = 11
+CONTROL_PLANE_PREFIX = "control-plane-0"
+# in a loop below we'll add the index to this number; which starts at 1. So the first control-plane IP will be 11.
+CONTROL_PLANE_IP_INIT = 10
+CONTROL_PLANES = ENV['CONTROL_PLANES'] ? ENV['CONTROL_PLANES'].to_i : 2
 
 NODE_NAME_PREFIX = 'worker-0'
-NODE_IP_START = 20
+NODE_IP_INIT = 20
+# Define the number of worker nodes.
+NODE_WORKERS = 2
+
 
 # Host operating system detection
 module OS
@@ -86,30 +89,34 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  # Provision control-plane-01 Node
-  config.vm.define CONTROL_PLANE_NAME do |node|
-    # Name shown in the GUI
-    node.vm.provider "virtualbox" do |vb|
-      vb.name = CONTROL_PLANE_NAME
-      vb.memory = 2048
-      vb.cpus = 1
-    end
-    node.vm.hostname = CONTROL_PLANE_NAME
-    node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{CONTROL_PLANE_IP}"
-  end
-
-  # Provision Worker Nodes
-  # Note that i starts at 1 and not 0.
-  (1..NUM_WORKER_NODES).each do |i|
-    config.vm.define "#{NODE_NAME_PREFIX}#{i}" do |node|
+  # Provision Control-plane  Nodes
+  (1..CONTROL_PLANES).each do |i| # Note that i starts at 1 and not 0.
+    machine_name = "#{CONTROL_PLANE_PREFIX}#{i}"
+    config.vm.define machine_name do |node|
+      # Name shown in the GUI
       node.vm.provider "virtualbox" do |vb|
-        vb.name = "#{NODE_NAME_PREFIX}#{i}"
+        vb.name = machine_name
         vb.memory = 2048
         vb.cpus = 1
       end
-      node.vm.hostname = "#{NODE_NAME_PREFIX}#{i}"
-      # because i starts at 1 and not 0, the IP 192.168.56.<NODE_IP_START> will be skipped.
-      node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{NODE_IP_START + i}"
+      node.vm.hostname = machine_name
+      # assign a private IP to the hostOnly adapter.
+      node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{CONTROL_PLANE_IP_INIT + i}"
+    end
+  end
+
+  # Provision Worker Nodes
+  (1..NODE_WORKERS).each do |i| # Note that i starts at 1 and not 0.
+    machine_name = "#{NODE_NAME_PREFIX}#{i}"
+    config.vm.define machine_name do |node|
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = machine_name
+        vb.memory = 2048
+        vb.cpus = 1
+      end
+      node.vm.hostname = machine_name
+      # assign a private IP to the hostOnly adapter.
+      node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{NODE_IP_INIT + i}"
     end
   end
 end
