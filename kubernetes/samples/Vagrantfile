@@ -22,7 +22,7 @@ JUMPER_IP = 10
 CONTROL_PLANE_PREFIX = "control-plane-0"
 # in a loop below we'll add the index to this number; which starts at 1. So the first control-plane IP will be 11.
 CONTROL_PLANE_IP_INIT = 10
-CONTROL_PLANES = ENV['CONTROL_PLANES'] ? ENV['CONTROL_PLANES'].to_i : 2
+CONTROL_PLANES = ENV['CONTROL_PLANES'] ? ENV['CONTROL_PLANES'].to_i : 1
 
 NODE_NAME_PREFIX = 'worker-0'
 NODE_IP_INIT = 20
@@ -98,7 +98,7 @@ Vagrant.configure("2") do |config|
       node.vm.provider "virtualbox" do |vb|
         vb.name = machine_name
         vb.memory = 2048
-        vb.cpus = 1
+        vb.cpus = 2
       end
       node.vm.hostname = machine_name
       # Assign private IPv4 and IPv6 addresses to the hostOnly adapter.
