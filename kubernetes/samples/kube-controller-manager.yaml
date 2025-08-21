@@ -99,7 +99,7 @@ spec:
     name: k8s-certs
   - hostPath:
       path: /etc/kubernetes/controller-manager.conf
-      type: FileOrCreate
+      type: File
     name: kubeconfig
   - hostPath:
       path: /usr/local/share/ca-certificates
