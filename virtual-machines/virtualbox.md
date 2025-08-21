@@ -47,35 +47,19 @@ These steps enable the EFI on the Motherboard.
     ```shell
     sudo apt update && sudo apt upgrade -y
     sudo apt install -y build-essential dkms linux-headers-$(uname -r)
+    sudo systemctl poweroff
     ```
-15. In the VirtualBox window menu, go to
+15. Start the machine again.
+16. In the VirtualBox window menu, go to
     `Devices > Insert Guest Additions CD image...`, to Insert the Guest
     Additions ISO into the VM CD-ROM.
-16. Mount the CD-ROM:
+17. Mount the CD-ROM:
     ```shell
     sudo mkdir -p /mnt/cdrom
     sudo mount /dev/cdrom /mnt/cdrom
     ```
-17. Run the installer `sudo /mnt/cdrom/VBoxLinuxAdditions.run`
-18. Run `sudo reboot` to restart the system and complete this process.
-
-## Install Guest Additions
-
-VirtualBox Guest Additions must be installed so that things such as shared
-folders can function.
-
-```shell
-GUEST_VER=7.1.8
-sudo apt-get install linux-headers-$(uname -r) build-essential dkms
-
-wget http://download.virtualbox.org/virtualbox/${GUEST_VER}/VBoxGuestAdditions_${GUEST_VER}.iso
-sudo mkdir /media/VBoxGuestAdditions
-sudo mount -o loop,ro VBoxGuestAdditions_${GUEST_VER}.iso /media/VBoxGuestAdditions
-sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run
-rm VBoxGuestAdditions_${GUEST_VER}.iso
-sudo umount /media/VBoxGuestAdditions
-sudo rmdir /media/VBoxGuestAdditions
-```
+18. Run the installer `sudo /mnt/cdrom/VBoxLinuxAdditions.run`
+19. Run `sudo reboot` to restart the system and complete this process.
 
 ---
 
