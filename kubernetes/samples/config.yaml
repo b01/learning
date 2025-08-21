@@ -13,8 +13,8 @@ authorization:
     cacheAuthorizedTTL: 0s
     cacheUnauthorizedTTL: 0s
 cgroupDriver: systemd
-#clusterDNS: # the DNS server IP is unknown when the kubelet first spins up.
-#- 10.96.0.10
+clusterDNS: # the DNS server IP is unknown when the kubelet first spins up.
+- 10.96.0.10
 clusterDomain: cluster.local
 containerRuntimeEndpoint: "unix:///var/run/containerd/containerd.sock"
 #imageServiceEndpoint: "registry.k8s.io/pause:3.10"
