@@ -12,7 +12,7 @@ run-name: ${{ github.actor }} run avr workflow-selector
 
 jobs:
   selector: # trigger this on push to main and only when a PR merge.
-    uses: kohirens/version-release/.github/workflows/selector.yml@5.1.6
+    uses: kohirens/version-release/.github/workflows/selector.yml@5.1.7
     name: workflow-selector
     secrets:
       github_write_token: ${{ secrets.GH_WRITE_TOKEN }}
