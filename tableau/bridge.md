@@ -119,7 +119,7 @@ suspended all Bridge refresh jobs that use Bridge refresh schedules.
 For troubleshooting Bridge errors you see on the Jobs page, see
 [Troubleshoot pooling].
 
-## Connections
+## Connection Types
 
 You cannot specify the bridge connections in your data sources, they are
 selected automatically by Tableau Cloud bases on network parameters.
@@ -218,6 +218,8 @@ Network Allowlist**.
 6. [Bridge Site Capacity]
 7. [About multi-factor authentication and Tableau Cloud]
 8. [Configure Pools]
+9. [Connectivity with Bridge]
+10. [Tableau Cloud Site Capacity]
 
 ---
 
@@ -234,3 +236,5 @@ Network Allowlist**.
 [Forward proxy filtering]: https://help.tableau.com/current/online/en-us/to_bridge_security.htm#forward-proxy-filtering
 [Troubleshoot pooling]: https://help.tableau.com/current/online/en-us/to_enable_bridge_live_connections.htm#troubleshoot-pooling
 [Configure Pools]: https://help.tableau.com/current/online/en-us/to_enable_bridge_live_connections.htm
+[Connectivity with Bridge]: https://help.tableau.com/current/online/en-us/to_sync_local_data.htm
+[Tableau Cloud Site Capacity]: https://help.tableau.com/current/online/en-us/to_site_capacity.htm#concurrent-jobs-capacity
