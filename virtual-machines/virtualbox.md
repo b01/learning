@@ -38,6 +38,9 @@ These steps enable the EFI on the Motherboard.
     downloaded
 11. Go to "Network" section and click th "Adapter 2" tab, then select
     "Host-only Adapter"
+
+    NOTE: If you require setting the IPv6 address, then just use another NAT for
+    Adapter 2.
 12. Click the "OK" button to close the settings dialog.
 13. Click the "Start" button to boot the machine, the installation process
     should begin shortly, follow the prompts to complete the installation
@@ -60,6 +63,13 @@ These steps enable the EFI on the Motherboard.
     ```
 18. Run the installer `sudo /mnt/cdrom/VBoxLinuxAdditions.run`
 19. Run `sudo reboot` to restart the system and complete this process.
+
+## Resources
+
+* Vagrant support VirtualBox Internal Network, see details here:
+  https://developer.hashicorp.com/vagrant/docs/providers/virtualbox/networking#virtualbox-internal-network
+  and example here: https://groups.google.com/g/vagrant-up/c/wT6C-L4pNOY/m/jt89fHyOAgAJ
+  another here: https://gist.github.com/lktslionel/e11813996644313f997944c7a99be1f0
 
 ---
 
