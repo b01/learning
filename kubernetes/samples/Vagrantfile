@@ -9,12 +9,15 @@ ADD_JUMP_BOX = ENV['ADD_JUMP_BOX'] ? ENV['ADD_JUMP_BOX'] : "NO"
 BOX_IMG = "b01/ubuntu-lts-noble-64-efi"
 BOX_VER = "0.1.1"
 
+# Time to wait for the VMs to boot up before timing out.
 BOOT_TIMEOUT_SEC = 180
 
 # Network IPv4 and IPv6 prefixes for the hostOnly adapters on the machines.
-VM_NETWORK_PREFIX = "192.168.56"
-VM_IP6_NETWORK_PREFIX = "fd00:192:168:56"
-DUAL_STACK = "NO"
+IPV4_PREFIX = "192.168.56."
+IPV6_PREFIX = "fd00:192:168:56::"
+IPV4_CIDR = "192.168.56.0/24"
+IPV6_CIDR = "fd00:192:168:56::/64"
+K8_NETWORK = "k8_int_net"
 
 JUMPER_NAME = "jump-box"
 JUMPER_IP = 10
@@ -22,13 +25,12 @@ JUMPER_IP = 10
 CONTROL_PLANE_PREFIX = "control-plane-0"
 # in a loop below we'll add the index to this number; which starts at 1. So the first control-plane IP will be 11.
 CONTROL_PLANE_IP_INIT = 10
-CONTROL_PLANES = ENV['CONTROL_PLANES'] ? ENV['CONTROL_PLANES'].to_i : 2
+CONTROL_PLANES = ENV['CONTROL_PLANES'] ? ENV['CONTROL_PLANES'].to_i : 1
 
 NODE_NAME_PREFIX = 'worker-0'
 NODE_IP_INIT = 20
 # Define the number of worker nodes.
 NODE_WORKERS = 2
-
 
 # Host operating system detection
 module OS
@@ -53,77 +55,106 @@ module OS
   end
 end
 
+# Setup a network adapter and assign IP4 and IP6 addresses.
+# WARNING: This will remove any IPs that VirtualBox assigns.
+def add_adapter(node, network_name, interface, ip4, ip6)
+    puts "add adapter function has been called"
+    puts "add network #{network_name}"
+    # Unfortunately VirtualBox has no way to assign an IP6 address here.
+    node.vm.network :private_network, intnet: network_name, ip: ip4
+
+    # Run this shell provisioner to assign IP6 manually inside VM.
+    # It will also flush the adapter, removing any previously assigned IPs.
+    # It also re-assigns the same IP4 address after the flush.
+    node.vm.provision "shell", inline: <<-SHELL
+        sudo ip addr flush dev #{interface}
+        sudo ip addr add #{ip4}/24 dev #{interface}
+        sudo ip -6 addr add #{ip6}/64 dev #{interface}
+        sudo ip link set #{interface} up
+        sudo ip -6 route add default via #{IPV6_PREFIX}::1 dev #{interface}
+    SHELL
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
+    # The most common configuration options are documented and commented below.
+    # For a complete reference, please see the online documentation at
+    # https://docs.vagrantup.com.
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://portal.cloud.hashicorp.com/vagrant/discover
-  # config.vm.box = "base"
+    # Every Vagrant development environment requires a box. You can search for
+    # boxes at https://portal.cloud.hashicorp.com/vagrant/discover
+    # config.vm.box = "base"
 
-  config.vm.box = BOX_IMG
-  config.vm.box_version = BOX_VER
-  config.vm.boot_timeout = BOOT_TIMEOUT_SEC
+    config.vm.box = BOX_IMG
+    config.vm.box_version = BOX_VER
+    config.vm.boot_timeout = BOOT_TIMEOUT_SEC
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  config.vm.box_check_update = false
+    # Disable automatic box update checking. If you disable this, then
+    # boxes will only be checked for updates when the user runs
+    # `vagrant box outdated`. This is not recommended.
+    config.vm.box_check_update = false
 
-  # Use an environment variable to dynamically turn off deploying a jump-box.
-  if ADD_JUMP_BOX == "YES"
-    # Provision a JumpBox
-    config.vm.define JUMPER_NAME do |node|
-      # Name shown in the GUI
-      node.vm.provider "virtualbox" do |vb|
-        vb.name = JUMPER_NAME
-        vb.memory = 1024
-        vb.cpus = 1
-      end
-      node.vm.hostname = JUMPER_NAME
-      node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{JUMPER_IP}"
+    # Use an environment variable to dynamically turn off deploying a jump-box.
+    if ADD_JUMP_BOX == "YES"
+        # Provision a JumpBox
+        config.vm.define JUMPER_NAME do |node|
+            # Name shown in the GUI
+            node.vm.provider "virtualbox" do |vb|
+                vb.name = JUMPER_NAME
+                vb.memory = 1024
+                vb.cpus = 1
+            end
+            node.vm.hostname = JUMPER_NAME
+        end
     end
-  end
 
-  # Provision Control-plane  Nodes
-  (1..CONTROL_PLANES).each do |i| # Note that i starts at 1 and not 0.
-    machine_name = "#{CONTROL_PLANE_PREFIX}#{i}"
-    config.vm.define machine_name do |node|
-      # Name shown in the GUI
-      node.vm.provider "virtualbox" do |vb|
-        vb.name = machine_name
-        vb.memory = 2048
-        vb.cpus = 1
-      end
-      node.vm.hostname = machine_name
-      # Assign private IPv4 and IPv6 addresses to the hostOnly adapter.
-      node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{CONTROL_PLANE_IP_INIT + i}"
-      if DUAL_STACK == "YES"
-        node.vm.network :private_network, ip: VM_IP6_NETWORK_PREFIX + "::#{CONTROL_PLANE_IP_INIT + i}"
-      end
-    end
-  end
+    # Provision Control-plane  Nodes
+    (1..CONTROL_PLANES).each do |i| # Note that i starts at 1 and not 0.
+        machine_name = "#{CONTROL_PLANE_PREFIX}#{i}"
 
-  # Provision Worker Nodes
-  (1..NODE_WORKERS).each do |i| # Note that i starts at 1 and not 0.
-    machine_name = "#{NODE_NAME_PREFIX}#{i}"
-    config.vm.define machine_name do |node|
-      node.vm.provider "virtualbox" do |vb|
-        vb.name = machine_name
-        vb.memory = 2048
-        vb.cpus = 1
-      end
-      node.vm.hostname = machine_name
-      # Assign private IPv4 and IPv6 addresses to the hostOnly adapter.
-      node.vm.network :private_network, ip: VM_NETWORK_PREFIX + ".#{NODE_IP_INIT + i}"
-      if DUAL_STACK == "YES"
-        node.vm.network :private_network, ip: VM_IP6_NETWORK_PREFIX + "::#{NODE_IP_INIT + i}"
-      end
+        config.vm.define machine_name do |node|
+            # Name shown in the GUI
+            node.vm.provider "virtualbox" do |vb|
+                vb.name = machine_name
+                vb.memory = 2048
+                vb.cpus = 2
+            end
+
+            node.vm.hostname = machine_name
+
+            add_adapter(node,
+                K8_NETWORK,
+                "enp0s8",
+                IPV4_PREFIX + "#{CONTROL_PLANE_IP_INIT + i}",
+                IPV6_PREFIX + "#{CONTROL_PLANE_IP_INIT + i}"
+            )
+        end
     end
-  end
+
+    # Provision Worker Nodes
+    (1..NODE_WORKERS).each do |i| # Note that i starts at 1 and not 0.
+        machine_name = "#{NODE_NAME_PREFIX}#{i}"
+
+        config.vm.define machine_name do |node|
+            node.vm.provider "virtualbox" do |vb|
+                vb.name = machine_name
+                vb.memory = 2048
+                vb.cpus = 1
+            end
+
+            node.vm.hostname = machine_name
+
+            # Use shell provisioner to assign IP manually inside the guest machine
+            # Assign private IPv4 and IPv6 addresses to the adapter.
+            add_adapter(node,
+                K8_NETWORK,
+                "enp0s8",
+                IPV4_PREFIX + "#{NODE_IP_INIT + i}",
+                IPV6_PREFIX + "#{NODE_IP_INIT + i}"
+            )
+        end
+    end
 end
