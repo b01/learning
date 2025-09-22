@@ -316,6 +316,11 @@ First lets understanding the GPG Key Structure little better:
    Your best bet is to start over and make 2 separate GPG keys. 1 for your
    private personal use and another for public use. Keys are cheap.
 
+### Commands
+
+On Windows in Powershell, you can check that the agent is running with
+`gpg-connect-agent reloadagent /bye`.
+
 ---
 
 [GNU Privacy Guard]: https://www.gnupg.org/
