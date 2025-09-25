@@ -1,3 +1,6 @@
+# For options see: https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/
+# https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/
+# see: https://kubernetes.io/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack
 apiVersion: kubelet.config.k8s.io/v1beta1
 authentication:
   anonymous:
@@ -12,12 +15,13 @@ authorization:
   webhook:
     cacheAuthorizedTTL: 0s
     cacheUnauthorizedTTL: 0s
+address: "::"
 cgroupDriver: systemd
 clusterDNS: # the DNS server IP is unknown when the kubelet first spins up.
 - 10.96.0.10
+- 2001:db8:42:1::1
 clusterDomain: cluster.local
 containerRuntimeEndpoint: "unix:///var/run/containerd/containerd.sock"
-#imageServiceEndpoint: "registry.k8s.io/pause:3.10"
 cpuManagerReconcilePeriod: 0s
 crashLoopBackOff: {}
 evictionPressureTransitionPeriod: 0s

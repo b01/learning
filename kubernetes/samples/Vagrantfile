@@ -10,13 +10,11 @@ BOX_IMG = "b01/ubuntu-lts-noble-64-efi"
 BOX_VER = "0.1.1"
 
 # Time to wait for the VMs to boot up before timing out.
-BOOT_TIMEOUT_SEC = 180
+BOOT_TIMEOUT_SEC = 300
 
 # Network IPv4 and IPv6 prefixes for the hostOnly adapters on the machines.
 IPV4_PREFIX = "192.168.56."
 IPV6_PREFIX = "fd00:192:168:56::"
-IPV4_CIDR = "192.168.56.0/24"
-IPV6_CIDR = "fd00:192:168:56::/64"
 K8_NETWORK = "k8_int_net"
 
 JUMPER_NAME = "jump-box"
@@ -55,23 +53,37 @@ module OS
   end
 end
 
-# Setup a network adapter and assign IP4 and IP6 addresses.
-# WARNING: This will remove any IPs that VirtualBox assigns.
+# Setup a network adapter and assign IP4 and IP6 addresses
+# (internal network, DHCP disabled).
 def add_adapter(node, network_name, interface, ip4, ip6)
-    puts "add adapter function has been called"
-    puts "add network #{network_name}"
+    puts "add adapter to #{interface} network #{network_name}"
     # Unfortunately VirtualBox has no way to assign an IP6 address here.
-    node.vm.network :private_network, intnet: network_name, ip: ip4
+    node.vm.network :private_network,
+        intnet: network_name,
+        auto_config: false
+
+    # Copy netplan file into guest
+    node.vm.provision "file", source: "99-custom.yaml.tmpl", destination: "/tmp/99-custom.yaml.tmpl"
 
     # Run this shell provisioner to assign IP6 manually inside VM.
     # It will also flush the adapter, removing any previously assigned IPs.
     # It also re-assigns the same IP4 address after the flush.
     node.vm.provision "shell", inline: <<-SHELL
-        sudo ip addr flush dev #{interface}
-        sudo ip addr add #{ip4}/24 dev #{interface}
-        sudo ip -6 addr add #{ip6}/64 dev #{interface}
-        sudo ip link set #{interface} up
-        sudo ip -6 route add default via #{IPV6_PREFIX}::1 dev #{interface}
+        #sudo ip addr flush dev #{interface}
+        #sudo ip addr add #{ip4}/24 dev #{interface}
+        #sudo ip -6 addr add #{ip6}/64 dev #{interface}
+        #sudo ip link set #{interface} up
+        #sudo ip -6 route add default via #{IPV6_PREFIX}1 dev #{interface}
+        # Alternative method to use netplan
+
+        export VAGRANT_interface="#{interface}"
+        export VAGRANT_ip4="#{ip4}"
+        export VAGRANT_ip6="#{ip6}"
+        export VAGRANT_gateway6="#{IPV6_PREFIX}1"
+        envsubst < /tmp/99-custom.yaml.tmpl | tee /tmp/99-custom.yaml
+        sudo cp /tmp/99-custom.yaml /etc/netplan/99-custom.yaml
+        sudo chmod 0600 /etc/netplan/99-custom.yaml
+        sudo netplan apply
     SHELL
 end
 
@@ -124,7 +136,7 @@ Vagrant.configure("2") do |config|
             end
 
             node.vm.hostname = machine_name
-
+            # Second adapter (internal network, DHCP disabled)
             add_adapter(node,
                 K8_NETWORK,
                 "enp0s8",
@@ -147,8 +159,7 @@ Vagrant.configure("2") do |config|
 
             node.vm.hostname = machine_name
 
-            # Use shell provisioner to assign IP manually inside the guest machine
-            # Assign private IPv4 and IPv6 addresses to the adapter.
+            # Second adapter (internal network, DHCP disabled)
             add_adapter(node,
                 K8_NETWORK,
                 "enp0s8",

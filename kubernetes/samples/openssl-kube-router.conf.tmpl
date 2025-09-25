@@ -1,0 +1,13 @@
+[ kube-router ]
+distinguished_name = kube-router_dn
+prompt             = no
+req_extensions     = kube-router_ext
+
+[ kube-router_dn ]
+CN = kube-router
+
+[ kube-router_ext ]
+basicConstraints     = CA:FALSE
+extendedKeyUsage     = clientAuth, serverAuth
+keyUsage             = critical, digitalSignature, keyEncipherment
+subjectAltName       = IP:127.0.0.1, IP:${IPV4}, IP:${IPV6}
