@@ -1,0 +1,154 @@
+# A serving certificate for the API server
+
+[ apiserver ]
+distinguished_name = apiserver_dn
+prompt             = no
+req_extensions     = apiserver_X509v3_extensions
+
+[ apiserver_dn ]
+CN = kube-apiserver
+
+[ apiserver_X509v3_extensions ]
+basicConstraints = critical, CA:FALSE
+extendedKeyUsage = serverAuth
+keyUsage         = critical, digitalSignature, keyEncipherment
+subjectAltName   = @apiserver_alt_names
+
+[ apiserver_alt_names ]
+DNS.1 = kubernetes.default.svc.cluster.local
+DNS.2 = kubernetes.default.svc
+DNS.3 = kubernetes.default
+DNS.4 = kubernetes
+DNS.5 = node
+DNS.6 = control-plane.kubernetes.cluster.local
+DNS.7 = control-plane
+DNS.8 = control-plane-01
+IP.1  = 127.0.0.1
+IP.2  = 10.96.0.1
+IP.3  = ${IPV4}
+IP.4  = ${IPV6}
+
+# A client certificate for the apiserver-etcd-client.crt.txt server to connect to the kubelets securely.
+
+[ apiserver-etcd-client ]
+distinguished_name = apiserver-etcd-client_dn
+prompt             = no
+req_extensions     = apiserver-etcd-client_ext
+
+[ apiserver-etcd-client_dn ]
+CN = kube-apiserver-etcd-client
+
+[ apiserver-etcd-client_ext ]
+basicConstraints = critical, CA:FALSE
+extendedKeyUsage = clientAuth
+keyUsage         = critical, digitalSignature, keyEncipherment
+subjectAltName   = @apiserver-etcd-client_sans
+
+[ apiserver-etcd-client_sans ]
+IP.1  = 127.0.0.1
+
+# A client certificate for the API server to connect to the kubelets securely.
+
+[ apiserver-kubelet-client ]
+distinguished_name = apiserver-kubelet-client_dn
+prompt             = no
+req_extensions     = v3_extensions
+
+[ apiserver-kubelet-client_dn ]
+CN = kube-apiserver-kubelet-client
+O  = system:masters
+
+[ v3_extensions ]
+basicConstraints = critical, CA:FALSE
+extendedKeyUsage = clientAuth
+keyUsage         = critical, digitalSignature, keyEncipherment
+
+# A client certificate for the front proxy CA.
+
+[ front-proxy-ca ]
+distinguished_name = front-proxy-ca_dn
+prompt             = no
+req_extensions     = front-proxy-ca_v3_extensions
+
+[ front-proxy-ca_dn ]
+CN = front-proxy-ca
+
+[ front-proxy-ca_v3_extensions ]
+basicConstraints = critical, CA:TRUE
+keyUsage         = critical, digitalSignature, keyEncipherment, keyCertSign, cRLSign
+subjectAltName   = @front-proxy-ca_alt_names
+
+[ front-proxy-ca_alt_names ]
+DNS.1 = front-proxy-ca
+
+# A client certificate for the front proxy client.
+
+[ front-proxy-client ]
+distinguished_name = front-proxy-client_dn
+prompt             = no
+req_extensions     = v3_extensions
+
+[ front-proxy-client_dn ]
+CN = front-proxy-client
+
+# Controller Manager
+
+[ controller-manager ]
+distinguished_name = controller-manager_dn
+prompt             = no
+req_extensions     = v3_extensions
+
+[ controller-manager_dn ]
+CN = system:kube-controller-manager
+O  = system:kube-controller-manager
+
+# Scheduler
+
+[ scheduler ]
+distinguished_name = scheduler_dn
+prompt             = no
+req_extensions     = v3_extensions
+
+[ scheduler_dn ]
+CN = system:kube-scheduler
+
+# Admin
+
+[ admin ]
+distinguished_name = admin_dn
+prompt             = no
+req_extensions     = v3_extensions
+
+[ admin_dn ]
+CN = kubernetes-admin
+O  = cluster-admin
+
+
+[ super-admin ]
+
+distinguished_name = super-admin_dn
+prompt             = no
+req_extensions     = v3_extensions
+
+[ super-admin_dn ]
+CN = kubernetes-super-admin
+O  = system:masters
+
+# Kube Proxy
+
+[ kube-proxy ]
+distinguished_name = kube-proxy_dn
+prompt             = no
+req_extensions     = kube-proxy_ext
+
+[ kube-proxy_dn ]
+CN = system:kube-proxy
+O  = system:node-proxier
+
+[ kube-proxy_ext ]
+basicConstraints     = CA:FALSE
+extendedKeyUsage     = clientAuth, serverAuth
+keyUsage             = critical, digitalSignature, keyEncipherment
+nsCertType           = client
+subjectAltName       = DNS:kube-proxy, IP:127.0.0.1
+subjectKeyIdentifier = hash

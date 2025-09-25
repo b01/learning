@@ -1,0 +1,14 @@
+network:
+  version: 2
+  ethernets:
+    ${VAGRANT_interface}:
+      addresses:
+      - ${VAGRANT_ip4}/24
+      - ${VAGRANT_ip6}/64
+      routes:
+       - to: ::/0
+         via: ${VAGRANT_gateway6}
+      nameservers:
+        addresses:
+        - 8.8.8.8
+        - 2001:4860:4860::8888

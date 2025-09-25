@@ -1,0 +1,14 @@
+[ node ]
+distinguished_name = node_dn
+prompt             = no
+req_extensions     = node_ext
+
+[ node_dn ]
+CN = system:node:${NODE_NAME}
+O  = system:nodes
+
+[ node_ext ]
+basicConstraints     = CA:FALSE
+extendedKeyUsage     = clientAuth, serverAuth
+keyUsage             = critical, digitalSignature, keyEncipherment
+subjectAltName       = DNS:${NODE_NAME}, IP:127.0.0.1, IP:${NODE_IPV4}, IP:${NODE_IPV6}
