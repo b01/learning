@@ -114,58 +114,7 @@ See [Requirements] for more details.
     -CAcreateserial \
     -out "${i}.crt"
    ```
-3. Make a kubeconfig for `kube-router` a manifest:
-   ```shell
-   cd ~/certs
-   i="kube-router"
-   cert_dir=/etc/kubernetes/pki
-   CLUSTER_NAME=kubernetes
-   CLUSTER_ENDPOINT=https://${IPV4}:6443
 
-   # Make a kubeconfig for the node adding the cluster.
-    sudo kubectl config set-cluster ${CLUSTER_NAME} \
-     --certificate-authority=${cert_dir}/ca.crt \
-     --embed-certs=true \
-     --server=${CLUSTER_ENDPOINT} \
-     --kubeconfig=/etc/kubernetes/${i}.conf
-    # Add credentials to the kubeconfig.
-    sudo kubectl config set-credentials ${i} \
-     --client-certificate=${i}.crt \
-     --client-key=${i}.key \
-     --embed-certs=true \
-     --kubeconfig=/etc/kubernetes/${i}.conf
-   # Add a context to the cluster.
-   sudo kubectl config set-context default \
-     --cluster=${CLUSTER_NAME} \
-     --user=${i} \
-     --kubeconfig=/etc/kubernetes/${i}.conf
-   # Set the context to use by default in the kubeconfig.
-   sudo kubectl config use-context default \
-     --kubeconfig=/etc/kubernetes/${i}.conf
-   mkdir -p /var/lib/kube-router
-   sudo cp -p /etc/kubernetes/kube-router.conf /var/lib/kube-router/kubeconfig
-   ```
-4. Make a `kube-router` manifest:
-   ```shell
-   mkdir ~/manifestscd && cd ~/manifests
-   wget -O kube-router-all.yml https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/generic-kuberouter-all-features.yaml
-
-   ```
-5. Apply changes to the `kube-router` manifest
-   ```text
-   wget -O kube-router-all.yml https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/generic-kuberouter-all-features.yaml
-   CLUSTERCIDR=10.96.0.0/16,2001:db8:42:1::/112 \
-   APISERVER=https://control-plane:6443 \
-   sh -c 'cat kube-router-all.yml | \
-   sed -e "s;%APISERVER%;$APISERVER;g" -e "s;%CLUSTERCIDR%;$CLUSTERCIDR;g"' | \
-   kubectl apply -f -
-
-   --enable-cni
-   --enable-ipv4
-   --enable-ipv6
-   --service-cluster-ip-range="10.96.0.0/16"
-   --service-cluster-ip-range="2001:db8:42:1::/112"
-   ```
 6. Apply the manifest `kubectl apply -f kube-router-daemonset.yml`
 
 ## Cleanup Configuration

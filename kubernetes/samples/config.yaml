@@ -15,7 +15,6 @@ authorization:
   webhook:
     cacheAuthorizedTTL: 0s
     cacheUnauthorizedTTL: 0s
-address: "::"
 cgroupDriver: systemd
 clusterDNS: # the DNS server IP is unknown when the kubelet first spins up.
 - 10.96.0.10
