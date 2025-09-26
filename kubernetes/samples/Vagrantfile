@@ -56,7 +56,7 @@ end
 # Setup a network adapter and assign IP4 and IP6 addresses
 # (internal network, DHCP disabled).
 def add_adapter(node, network_name, interface, ip4, ip6)
-    puts "add adapter to #{interface} network #{network_name}"
+    #puts "add adapter to #{interface} network #{network_name}"
     # Unfortunately VirtualBox has no way to assign an IP6 address here.
     node.vm.network :private_network,
         intnet: network_name,
@@ -74,8 +74,8 @@ def add_adapter(node, network_name, interface, ip4, ip6)
         #sudo ip -6 addr add #{ip6}/64 dev #{interface}
         #sudo ip link set #{interface} up
         #sudo ip -6 route add default via #{IPV6_PREFIX}1 dev #{interface}
-        # Alternative method to use netplan
 
+        # Alternative method to use netplan
         export VAGRANT_interface="#{interface}"
         export VAGRANT_ip4="#{ip4}"
         export VAGRANT_ip6="#{ip6}"
