@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Failed Dependency (424)</title>
+    </head>
+    <body>
+        {{if ne .Ping.Error "" }}
+        <div>Error: {{.Ping.Error}}</div>
+        {{- end}}
+
+        {{- if ne .Pong.Error "" }}
+        <div>Error: {{.Pong.Error}}</div>
+        {{- end}}
+    </body>
+</html>
