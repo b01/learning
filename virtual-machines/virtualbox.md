@@ -37,7 +37,7 @@ These steps enable the EFI on the Motherboard.
     small circle drive Icon will appear. Click that and find the ISO image you
     downloaded
 11. Go to "Network" section and click th "Adapter 2" tab, then select
-    "Host-only Adapter"
+    "Internal Network"
 
     NOTE: If you require setting the IPv6 address, then just use another NAT for
     Adapter 2.
