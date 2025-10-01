@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Home</title>
+    </head>
+    <body>
+        <table class="server-info">
+            <tr>
+                <td class="hostname">{{.Ping.Hostname }}</td>
+            </tr>
+            {{range $i, $nic := .Ping.Adapters}}
+            <tr class="network-adapter">
+                <td>{{$i}}</td>
+                <td>{{.Name}}</td>
+                <td>
+                    {{range .Ips}}<div class="ip-addresss">{{.}}</div>{{end}}
+                </td>
+            </tr>
+            {{end}}
+        </table>
+        <table class="server-info">
+            <tr>
+                <td class="hostname">{{.Pong.Hostname }}</td>
+            </tr>
+            {{range $i, $nic := .Pong.Adapters}}
+                <tr class="network-adapter">
+                    <td>{{$i}}</td>
+                    <td>{{.Name}}</td>
+                    <td>
+                        {{range .Ips}}<div class="ip-addresss">{{.}}</div>{{end}}
+                    </td>
+                </tr>
+            {{end}}
+        </table>
+    </body>
+</html>

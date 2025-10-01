@@ -1,0 +1,49 @@
+services:
+    app1:
+        build:
+            args:
+                REPO: ${REPO}
+            dockerfile: .config/docker/backend/Dockerfile
+            context: ../..
+            target: dev
+        environment:
+            VERBOSITY_LEVEL: 6
+        image: khalifahks/learning-golang:webapp-pinger
+        tty: true
+        ports:
+            - '8443:443'
+        volumes:
+            - ../../:/root/src/${REPO}/golang/webapp-pinger
+            - ./backend/.ash_history:/root/.ash_history
+            - go_bin_cache:/root/bin
+            - go_pkg_cache:/root/pkg
+        networks:
+            golang: {}
+
+    app2:
+        build:
+            args:
+                REPO: ${REPO}
+            dockerfile: .config/docker/backend/Dockerfile
+            context: ../..
+            target: dev
+        environment:
+            VERBOSITY_LEVEL: 6
+        image: khalifahks/learning-golang:webapp-pinger
+        tty: true
+        ports:
+            - '8444:443'
+        volumes:
+            - ./backend/.ash_history-02:/root/.ash_history
+            - go_bin_cache:/root/bin
+            - go_pkg_cache:/root/pkg
+        networks:
+            golang: {}
+
+volumes:
+    go_bin_cache: null
+    go_pkg_cache: null
+
+networks:
+    golang:
+        enable_ipv6: true
