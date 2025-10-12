@@ -97,7 +97,31 @@ server {
 }
 ```
 
+## Set a Cookie
 
+Not sure how practical this is, but you can set a cookie when the browser
+request a static content page.
+
+To use this with a Lambda, you'd need to use something like a CloudFront Edge
+function.
+
+```nginx
+server {
+    # Case sensitive match begins with `~` and case-insensitive `~*` double
+    # quotes help use literal spaces in the match.
+    location ~* ^/p/([a-zA-Z0-9\s\-_]+)$ {
+        # always return the index.html, which is the login page file URLs of:
+        # /p/company%20name
+        #see https://nginx.org/en/docs/http/ngx_http_core_module.html#try_files
+        try_files $uri /index.html
+
+        # Parse the company name out of the URI and set it as a cookie so
+        # JavaScript can pick it up and set it in the form.
+        add_header X-Partner $1;
+        add_header Set-Cookie "partner=$1; Path=/; Domain=; Secure; SameSite=Strict; Expires=60;";
+    }
+}
+```
 
 ---
 
