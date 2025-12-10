@@ -74,7 +74,8 @@ Then there are more details about [Packaging the Box] you should review as well.
     certutil -hashfile .\ubuntu-lts-noble-64.box MD5
     ```
 15. Go log into Vagrant Cloud. If it is a new box, then click Create a box,
-    or add a version.
+    or click an existing box then select `Version` on the left menu. Once the
+    page loads there should be an "Add Version" button somewhere on the page.
 16. Fill out the form and submit, wait for the upload to complete.
 
 ---
