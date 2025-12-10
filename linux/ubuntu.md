@@ -28,3 +28,9 @@ sudo vi /etc/default/console-setup
 FONTFACE="TER"
 FONTSIZE="16x32"
 ```
+
+## List IP routes
+```shell
+ip route list
+ip route get <IP>
+```
