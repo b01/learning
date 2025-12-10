@@ -7,7 +7,7 @@ ADD_JUMP_BOX = ENV['ADD_JUMP_BOX'] ? ENV['ADD_JUMP_BOX'] : "NO"
 
 # BOX_IMG = "ubuntu/jammy64"
 BOX_IMG = "b01/ubuntu-lts-noble-64-efi"
-BOX_VER = "0.1.1"
+BOX_VER = "0.2.0"
 
 # Time to wait for the VMs to boot up before timing out.
 BOOT_TIMEOUT_SEC = 300
@@ -79,6 +79,7 @@ def add_adapter(node, network_name, interface, ip4, ip6)
         export VAGRANT_interface="#{interface}"
         export VAGRANT_ip4="#{ip4}"
         export VAGRANT_ip6="#{ip6}"
+        export VAGRANT_gateway="#{IPV4_PREFIX}1"
         export VAGRANT_gateway6="#{IPV6_PREFIX}1"
         envsubst < /tmp/99-custom.yaml.tmpl | tee /tmp/99-custom.yaml
         sudo cp /tmp/99-custom.yaml /etc/netplan/99-custom.yaml
