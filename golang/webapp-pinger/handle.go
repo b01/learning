@@ -19,14 +19,14 @@ type handler struct {
 }
 
 func (h *handler) home(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-
 	bytes, e2 := os.ReadFile(h.staticDir + "/index.html")
 	if e2 != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Errf("failed to read file: %v", e2.Error())
 		return
 	}
+
+	w.Header().Set("Content-Type", "text/html")
 	_, err := w.Write(bytes)
 	if err != nil {
 		log.Errf("could not write response: %v", err)
