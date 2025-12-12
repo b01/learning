@@ -31,15 +31,16 @@ be tricky the first few times or if you haven't used it in a while.
    ```
    NOTE: The `--from` matches the name of the additional context item before the
    equal sign.
-5. If the dependency is a private repository then you can provide credentials
-   using a `.netrc` file which git will use to access the repository. It may be
-   better if you generate an fine-grained access token rather than use your
-   password. That should avoid the MFA and be more team friendly. Place the file
-   in the $HOME directory of the container user.
-   NOTE: I prefer this method `https://go.dev/doc/faq#git_https` over SSH now
-   because I don't need to supply my .ssh directory to the container.
-6. Make sure that if you do use ssh in the container to pull repositories that
-   you have added domains such as `github.com` to the list of
+5. If the dependency is a private repository and you wish to use HTTPS to
+   download the module, then you can provide `git` credentials using a `.netrc`
+   file; which it will use to access the repository. Place the file in the
+   $HOME directory of the container user.
+   NOTE: It may be better if you generate an fine-grained access token rather
+   than use your  password. That should avoid the MFA and be more team friendly.
+   I prefer this method `https://go.dev/doc/faq#git_https` over SSH since I only
+   need to provide a single file instead of a directory.
+6. Optionally you can use SSH, generating .ssh or mapping a volume in the
+   container to download from repositories. Be sure to add any hosts to
    `~/.ssh/known_hosts`, or you will get errors.
 7. Also do not forget to add `git` and `openssh` to the image before building
    the first time.
