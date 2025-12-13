@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0]
+
+### Added
+
+- Learning PowerShell Base64 Encoding
+- Learning Nginx Can Set Cookies
+- Learning Go with A Project
+- Learning Golang Server
+- Learning Nginx Basic
+- Learning Linux Section
+- Learning Kubernetes CNI - Kube-Router
+- Learning Kubernetes Dualstack
+
+### Changed
+
+- Learning Containers
+- Learning Virtual Machines
+- Learning Vitual Machines
+- Learning Linux
+- Learning Kubernetes
+
+### Fixed
+
+- Learning Kubernetes Dualstack
+
+### Regular Maintenance
+
+- Updated Ignore File
+- Grammatical Cleanup.
+
 ## [0.3.0]
 
 ### Added
