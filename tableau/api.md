@@ -34,6 +34,12 @@ to access the REST API.
    ```
 5. Use the Tableau access token in subsequent requests—in subsequent REST API calls, use 1) the Tableau credentials token as the X-Tableau-Auth(Link opens in a new window) header value and 2) the site ID (LUID) in the request URI
 
+An important bit of info to know is that a secret is required when using
+connected apps for embedding authentication or REST API authorization.
+Secrets can be created in a connected app, do not expire, and remain valid
+until deleted. For details not provided here review [Configure Connected
+Apps with Direct Trust].
+
 ## Connected Apps JWT
 
 Signing in with a JSON Web Token (JWT), from a connected app
@@ -53,3 +59,4 @@ __added in Tableau Cloud June 2022 (API v3.16)__
 [connected app]: https://help.tableau.com/current/online/en-us/connected_apps.htm
 [Site settings for personal access tokens]: https://help.tableau.com/current/online/en-us/security_personal_access_tokens.htm?source=productlink#site-settings-for-personal-access-tokens
 [Use Tableau Connected Apps for Application Integration]: https://help.tableau.com/current/online/en-us/connected_apps.htm?source=productlink
+[Configure Connected Apps with Direct Trust]: https://help.tableau.com/current/online/en-us/connected_apps_direct.htm
