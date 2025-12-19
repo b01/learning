@@ -48,6 +48,11 @@ __added in Tableau Cloud June 2022 (API v3.16)__
 
 [Connected apps JWT]
 
+
+### Handling Errors
+
+Please review [Handling Errors in the REST API].
+
 ---
 
 [Sign In request]: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_authentication.htm#sign_in
@@ -60,3 +65,4 @@ __added in Tableau Cloud June 2022 (API v3.16)__
 [Site settings for personal access tokens]: https://help.tableau.com/current/online/en-us/security_personal_access_tokens.htm?source=productlink#site-settings-for-personal-access-tokens
 [Use Tableau Connected Apps for Application Integration]: https://help.tableau.com/current/online/en-us/connected_apps.htm?source=productlink
 [Configure Connected Apps with Direct Trust]: https://help.tableau.com/current/online/en-us/connected_apps_direct.htm
+[Handling Errors in the REST API]: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_errors.htm
