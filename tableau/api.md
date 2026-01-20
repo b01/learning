@@ -12,10 +12,9 @@ to access the REST API.
 1. Create a connected app using one of the following methods:
    * [Configure Connected Apps with Direct Trust]
    * [Configure Connected Apps with OAuth 2.0 Trust]
-2. Make a Personal Access Token (or PAT from here on), which is also required.
-   It will serve ass the account used to access the API. For managing PATs, see
-   [Site settings for personal access tokens].
-   ![Personal Access Token (PAT) Settings](/tableau/pat-settings.png)
+2. A user email of your choice is also required. This will serve to give
+   the Connected App permissions, so maybe also make a user specifically
+   for your Connected App.
 3. Generate a valid JWT—at runtime from your application, configured with the
    scopes you have included, see details at [Configure the JWT].
 4. Make a [Sign In request] from your application using the JWT to return a
@@ -62,7 +61,6 @@ Please review [Handling Errors in the REST API].
 [Configure the JWT]: https://help.tableau.com/current/online/en-us/connected_apps_direct.htm#step-3-configure-the-jwt
 [Connected apps JWT]: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_authentication.htm#connected-apps-jwt
 [connected app]: https://help.tableau.com/current/online/en-us/connected_apps.htm
-[Site settings for personal access tokens]: https://help.tableau.com/current/online/en-us/security_personal_access_tokens.htm?source=productlink#site-settings-for-personal-access-tokens
 [Use Tableau Connected Apps for Application Integration]: https://help.tableau.com/current/online/en-us/connected_apps.htm?source=productlink
 [Configure Connected Apps with Direct Trust]: https://help.tableau.com/current/online/en-us/connected_apps_direct.htm
 [Handling Errors in the REST API]: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_errors.htm
