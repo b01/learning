@@ -15,20 +15,21 @@ standard for it at [RFC 7519 - JSON Web Token (JWT)], and for each type of JWT:
 When developing with multiple systems, I can't stress enough how important good
 documentation can help in many ways. And RFCs are some of the best there is,
 though it may take some getting used to reading at that level. Its worth the
-churn reduction and ROI you get from doing so. so I've been addressing more RFCs
+churn reduction and ROI you get from doing so. So I've been addressing more RFCs
 directly, like I did when I began so many years ago.
 
 Building JWTs according to the examples out there should be easy. It is the
-libraries that I find to be barrier. More specifically their API. I have found
-it is usually the most popular/default lib for a language that is the most
-difficult to comprehend and cumbersome to implement. I hypothesize that is the
-reason for the sheer number of libraries there are for working with JWTs in each
-language. Which you can see here: https://jwt.io/libraries
+libraries that I find to be a barrier-to-entry. More specifically various JWT
+APIs. I have found it is usually the most popular/default lib for a language
+that is the most difficult to comprehend and cumbersome to implement. I
+hypothesize that is the reason for the sheer number of libraries there are for
+working with JWTs in each language. Which you can review here:
+https://jwt.io/libraries
 
 To make matters worse, I've built my own. The only justification for my library
 is that I try to make the API intuitive. The code you need to write should allow
 you to copy and paste pseudocode examples you see on the web, and with minimal
-change, have them work with my library. So it is as if what you read actually
+change, have them work with my library. As if what you read actually
 works in code as well. Making transitioning from learning/reading to coding
 smooth.
 
@@ -39,60 +40,69 @@ by deconstructing it and comparing the values.
 Follow steps mentioned in the [RFC Section 7.2 - Validating a JWT].
 1. Check the number of periods to determine if the JWT is type JWE or JWS.
 2. Split the token by period "." and use the first part as the header.
-3. Decode the header using Base64 URL decoding (NOT standard).
+3. Decode the header using Base64 URL decoding (NOT Base64 Standard).
 4. Verify the header is valid JSON by decoding it as JSON.
 5. Verify the header has only fields your app expects, or that are documented
-   for a provider/vendor that built the JWT. verify there is at lead the "alg" key, if not then
-   the "typ" key should eb something other than "JWT" and your app knows how to
-   handle tha kind of token. This doc assumes `typ` is "JWT" and `alg` is
-   required here. sign/encrypt it.
-6. Determine if it is a JWS or JWT by counting the number of periods in the
+   for a provider/vendor that built the JWT.
+6. Verify there is at least the "alg" key, if not then, the "typ" key should be
+   something other than "JWT" and that your app knows how to handle that kind
+   of token. This doc assumes `typ` is "JWT" and `alg` is required here.
+   Sign/encrypt it.
+7. Determine if it is a JWS or JWT by counting the number of periods in the
    token. See [Distinguishing between JWS and JWE Objects].
 
 You can use the Claim Value of the `alg` Claim Name in the JOSE Header to get
-the algorithm used to sign a JWS the In the case of a secret/signature
-for a JWS token, you use the secret, PEM key, to build the signature and comepare
-it to the signature. or the like to see if that was
-use to make the signature somewhat of the
-reverse to
+the algorithm used to sign a JWS. In the case of a secret/signature
+for a JWS token, you use the secret, PEM key, to build the signature and compare
+it to the signature of the token you wish to validate.
 
 To understand how to validate a JWT of JWS type that uses the RS256 algorithm,
-please read [A.2.2.  Validating] of  [A.2 Example JWS Using RSASSA-PKCS1-v1_5 SHA-256]
+please read [A.2.2.  Validating] of [A.2 Example JWS Using RSASSA-PKCS1-v1_5 SHA-256]
 
 In order to do it with the Kohirens JSON Web Token library, the code looks like:
+
 ```go
 package main
 
 import (
-   "fmt"
-   "github.com/kohirens/json-web-token"
+	"fmt"
+	"os"
+
+	"github.com/kohirens/json-web-token"
 )
 
 func main() {
-   header := jwt.ClaimSet{// JOSE Header
-      "alg": "RS256",
-   }
-   payload := jwt.ClaimSet{// Payload example
-      "admin": true,
-      "iat":   1516239022,
-      "name":  "John Doe",
-      "sub":   "1234567890",
-   }
+	header := jwt.ClaimSet{ // JOSE Header
+		"alg": "RS256",
+	}
+	payload := jwt.ClaimSet{ // Payload example
+		"admin": true,
+		"iat":   1516239022,
+		"name":  "John Doe",
+		"sub":   "1234567890",
+	}
+	// Build a JWT using an RSA private key in PEM format.
+	token, _ := jwt.BuildJWS(header, payload, load("jwtRS256.key"))
 
-   // Build a JWT using an RSA private key in PEM format.
-   token, _ := jwt.BuildJWS(header, payload, load("jwtRS256.key"))
+	// Validate a token.
+	info, e1 := jwt.Validate(token, load("jwtRS256.key.pub"), []string{"iat", "sub"})
+	if e1 != nil {
+		fmt.Println(e1.Error())
+		return
+	}
 
-   // Validate a token.
-   info, e1 := jwt.Validate([]byte(token),  load("jwtRS256.key.pub"), []string{"iat", "sub"})
-   if e1 != nil {
-      fmt.Println(e1.Error())
-      return
-   }}
-
-   // Output: the token is a valid JWS token
-   fmt.Printf("the token is a valid %v token\n", info.Type)
+	// Output: the token is a valid JWS token
+	fmt.Printf("the token is a valid %v token\n", info.Type)
 }
 
+
+func load(filename string) []byte {
+	b, e1 := os.ReadFile(filename)
+	if e1 != nil {
+		panic(e1.Error())
+	}
+	return b
+}
 ```
 ---
 
