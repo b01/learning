@@ -18,7 +18,7 @@ The Embedding API v3 provides a rich set of interfaces. See [About the Embedding
 2. You can create, or instantiate, a Viz object as either a TableauViz object (to embed a view) or a TableauAuthoringViz object (to embed a web authoring view).
 3. From the Viz object, you can access all the workbooks, sheets, methods, and properties contained in the Viz object.
 4. You can also embed a view or a web authoring view using the Tableau web components (<tableau-viz> and <tableau-authoring-viz>). Using a <tableau-viz> web component is the simplest way to embed a view into a page and to initialize the Embedding API.
-5. To give clients access to their views that are not public you'll need to make a "Connected app" and retrieve a JWT token, which needs to be set on the web component as an HTML attribute or usings JS to set its `token` property. They give examples of how to retrieve a token using code written in Python. It suggests you can make a backend API endpoint and use JS to retrieve the token. Storing it in a cookie seems the best option since the token will be needed for subsequent calls to the Embed API on the frontend.
+5. To give clients access to their views that are not public you can make a "Connected App" and retrieve a JWT token, which needs to be set on the web component as an HTML attribute or usings JS to set its `token` property. They give examples of how to retrieve a token using code written in Python. It suggests you can make a backend API endpoint and use JS to retrieve the token. Storing it in a cookie seems to be the option of choice since the token will be needed for subsequent calls to the Embed API on the frontend.
 
 
 ### How To Implement
