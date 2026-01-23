@@ -32,10 +32,16 @@ NOTE: You MUST provide a status code, otherwise you will get an internal error.
 NOTE: If you return the error argument, then function will fail and not return
 a response.
 
+NOTE: When returning an HTTP response, it does not use cookies set in the
+header map, instead cookies should be returned as their own string array on
+the response object.
+
 Review [Valid handler signatures for Go handlers].
 Also see:
 * [Invoking Lambda function URLs]
     * [Request and response payloads] which contains example JSON.
+      * [Request payload format]
+      * [Response payload format]
 
 ## Gotcha/Pitfalls To Avoid
 
@@ -106,3 +112,5 @@ function and is the simplest option to implement and also the most cost-effectiv
 [Valid handler signatures for Go handlers]: https://docs.aws.amazon.com/lambda/latest/dg/golang-handler.html#golang-handler-signatures
 [Invoking Lambda function URLs]: https://docs.aws.amazon.com/lambda/latest/dg/urls-invocation.html
 [Request and response payloads]: https://docs.aws.amazon.com/lambda/latest/dg/urls-invocation.html#urls-payloads
+[Request payload format]: https://docs.aws.amazon.com/lambda/latest/dg/urls-invocation.html#urls-request-payload
+[Response payload format]: https://docs.aws.amazon.com/lambda/latest/dg/urls-invocation.html#urls-response-payload
