@@ -16,12 +16,15 @@ input argument is the context. The seconds can be any type that can be used
 with json.Unmarshal. The handlers return can have up to 2 arguments. If
 only 1 then an error, if 2 the first can be any structure that can be used with
 json.Marshal and has keys:
-* statusCode - a required integer representing an HTTP status code.
-* headers - optional map of strings, if none provided, then Content-Type
+* `statusCode` - a required integer representing an HTTP status code.
+* `headers` - optional map of strings, if none provided, then Content-Type
   defaults to plain text.
-* body - optional string
-* cookies - an array of cookie as strings.
-* isBase64Encoded - bool value indicating if the body is base64 encoded.
+* `body` - optional string
+* `cookies` - an array of cookie as strings. Note, I tried setting cookies in
+  the header, and AWS Lambda just ignored them. If they are present in the
+  header, where they belong, Lambda will do nothing with them. It's a wierd
+  AWS thing.
+* `isBase64Encoded` - bool value indicating if the body is base64 encoded.
   Typical for media types such as images.
 
 NOTE: You MUST provide a status code, otherwise you will get an internal error.
