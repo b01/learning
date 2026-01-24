@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0]
+
+### Added
+
+- Learning Terraform Provider Authoring
+- Learning OIDC with Google
+- Laerning CI-CD
+- Go Language
+- Learning AWS Lambda
+- Learning Git Commands
+
+### Changed
+
+- Learning Git and Go Private Repo Access
+- Various Learnings Updated
+- Format Learning Lambda
+
 ## [0.5.0]
 
 ### Added
