@@ -43,6 +43,8 @@ stating:
 current directory is contained in a module that is not one of the workspace modules listed in go.work. You can add the module to the workspace using:
         go work use ..\..
 ```
+NOTE: If no go module is detected, then nothing will be output on the command
+line or the go.work file.
 
 See https://go.dev/ref/mod#workspaces for an in-depth reference on
 workspaces.
