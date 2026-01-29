@@ -10,16 +10,25 @@ patterns. See [Environment variables] for more information on `GOPRIVATE`.
 You may be able to set it with the command:
 `go env -w GOPRIVATE="${GOPRIVATE},github.com/<org|*>/<repo|*>"`.
 
-Though not work in Powershell. There are 2 parts. set the environment variable,
-and if you use Git with SSH, then you want to have it use ssh instead of HTTPS,
-which is what Go defaults to for dependencies. For example, for a private repo:
+This will not work in Powershell. There are 2 parts. Set the environment
+variable, and if you use Git with SSH, then you want run the following
+additional Git command to have it use ssh instead of HTTPS.
+For example, for a private repo:
 
+SSH
 ```shell
 export GOPRIVATE="*github.com/<org>/<repository>"
 git config --global url."ssh://git@github.com/<org>/<repository>".insteadOf "https://github.com/<org>/<repository>"
 go get github.com/<org>/<repository>@0.1.0
 ```
 
+HTTPS:
+```shell
+export GOPRIVATE="*github.com/<org>/<repository>"
+CAT<<TXT | tee ~/.netrc
+machine github.com login <username> password <personal-access-token>
+TXT
+```
 ## Go Work
 
 If you want to develop a project in Go, along with 1 or more dependencies that
