@@ -1,6 +1,6 @@
 # Learning: Kubernetes
 
-This covers Kubernetes overview, installation, and administration.
+This overview covers Kubernetes installation and administration.
 
 ## Overview
 
@@ -12,9 +12,19 @@ This covers Kubernetes overview, installation, and administration.
 
 ## Step 1 Take an Online Course
 
-This will serve as a good crash-course into Kubernetes, most of them swear they
-will be all you need to pass an exam. Their course alone may not be enough
-if you're a beginner.
+This is how I assume most get into Kubernetes.
+While a course will serve as a good crash-course into Kubernetes, most of them
+swear they will be all you need to pass an exam. I found that their courses
+alone were not enough, at least for me, and maybe you too if you're a beginner.
+
+Taking a course is up to you, it's how I started. I don't want to steer you
+away from this guide, but it jumps right into using Kubernetes.
+While it should be complete enough for you to go through as a beginner.
+There is no soft intro. You're expected to go through the material repeatedly
+until you understand it and can run a decent amount of commands without looking
+them up. There are also exercises that  will give you even more hand-on
+experience. Allowing you to learn how to administer Kubernetes so that your
+confident on your own.
 
 I took the [Certified Kubernetes Administrator (CKA) Course] by KodeKloud. It
 will help you get started with hands-on very quickly. It will give you a good
