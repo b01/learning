@@ -1,25 +1,24 @@
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 2000:192:168:56::11
+  bindPort: 6443
+nodeRegistration:
+  kubeletExtraArgs:
+    - name: node-ip
+      value: 2000:192:168:56::11,192.168.56.11
 ---
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: 1.33.0
 networking:
   dnsDomain: cluster.local
-  podSubnet: 10.244.0.0/16,2001:db8:42:0::/56
-  serviceSubnet: 10.96.0.0/16,2001:db8:42:1::/112
+  podSubnet: 2001:db8:42:0::/56,10.244.0.0/16
+  serviceSubnet: 2001:db8:42:1::/112,10.96.0.0/16
 controlPlaneEndpoint: control-plane
 apiServer:
   certSANs:
-   - "127.0.0.1" # When you set the advertiseAddress to a non-loopback address, you must add the loopback address to the certSANs list.
-   - "192.168.56.11"
----
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: InitConfiguration
-localAPIEndpoint:
-  advertiseAddress: "192.168.56.11"
-  bindPort: 6443
----
-kind: KubeletConfiguration
-apiVersion: kubelet.config.k8s.io/v1beta1
-cgroupDriver: systemd
+   - 127.0.0.1 # When you set the advertiseAddress to a non-loopback address, you must add the loopback address to the certSANs list.
+   - 192.168.56.11
 
 # sudo kubeadm init --config=kubeadm-dual-stack-config.yaml
