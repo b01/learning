@@ -14,7 +14,7 @@ BOOT_TIMEOUT_SEC = 300
 
 # Network IPv4 and IPv6 prefixes for the hostOnly adapters on the machines.
 IPV4_PREFIX = "192.168.56."
-IPV6_PREFIX = "fd00:192:168:56::"
+IPV6_PREFIX = "2000:192:168:56::"
 K8_NETWORK = "k8_int_net"
 
 JUMPER_NAME = "jump-box"
