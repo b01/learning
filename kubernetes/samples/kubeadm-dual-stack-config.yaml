@@ -18,7 +18,10 @@ networking:
 controlPlaneEndpoint: control-plane
 apiServer:
   certSANs:
-   - 127.0.0.1 # When you set the advertiseAddress to a non-loopback address, you must add the loopback address to the certSANs list.
+   - ::1 # When you set the advertiseAddress to a non-loopback address, you must add the loopback address to the certSANs list.
+   - 0:0:0:0:0:0:0:1
+   - 2000:192:168:56::11
+   - 127.0.0.1
    - 192.168.56.11
 
 # sudo kubeadm init --config=kubeadm-dual-stack-config.yaml
