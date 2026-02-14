@@ -110,6 +110,6 @@ configuration of a Linux box, and especially when troubleshooting a cluster.
 [Kubernetes The Hard Way by Kelsey Hightower]: https://github.com/kelseyhightower/kubernetes-the-hard-way
 [Kubernetes The Hard Way]: https://github.com/b01/kubernetes-the-hard-way
 [Commands To Know]: /kubernetes/commands-to-know.md#commands-to-know
-[CKA Exam Guide v1.32]: /kubernetes/7.0-cka-exam-curriculum-v1.32.md
-[kubeadm Cluster Install]: /kubernetes/5.0-kubeadm-cluster-install.md
+[CKA Exam Guide v1.32]: /kubernetes/007.0-cka-exam-curriculum-v1.32.md
+[kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md
 [Local Storage Class Manifest]: /kubernetes/samples/sc-local.yml
