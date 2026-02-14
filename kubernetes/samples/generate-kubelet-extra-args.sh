@@ -18,8 +18,3 @@ EOF
 
 systemctl daemon-reload
 systemctl restart kubelet
-
-# Join the cluster
-kubeadm join <your-control-plane>:6443 \
-  --token <token> \
-  --discovery-token-ca-cert-hash sha256:<hash>
