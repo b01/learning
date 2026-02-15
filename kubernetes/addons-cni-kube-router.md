@@ -1,13 +1,18 @@
 # Addon CNI Kube-Router
 
 After trying Flannel, it was time to move on to something that supported the
-Kubernetes Network Policy feature. I tried Calico, which is ton of yaml (over
+Kubernetes Network Policy feature. I tried Calico, which is a ton of yaml (over
 10K lines) and complex to configure. Then pivoting to Antrea, which is less
 complex, but just as difficult to configure as Calico. I began looking for
 another, then I ran in to Kube-Router. So here we are. Its documentation
-is simple, clear, and a quick read. Also the configuration looks as simple
+is simple, clear, and a quick read. Also, the configuration looks as simple
 as the standard Kubernetes components, its like it fits right on. Unlike some
 others (looking at you Calico and Antrea).
+
+That said, it also requires a TLS certificate to authenticate with the
+`kube-apiserver`. I'm not sure if there is an automated way to do that with the
+installation. I should look into installing it with helm. Otherwise, I do show
+how to do it manually in this guide.
 
 ## Requirements
 
@@ -115,7 +120,7 @@ See [Requirements] for more details.
     -out "${i}.crt"
    ```
 
-6. Apply the manifest `kubectl apply -f kube-router-daemonset.yml`
+3. Apply the manifest `kubectl apply -f kube-router-daemonset.yml`
 
 ## Cleanup Configuration
 
