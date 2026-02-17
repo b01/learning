@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0]
+
+### Added
+
+- Learning Kubernetes: More Guides
+- Learing Kubernetes: Deployment Exercise
+- Learning Kubernetes: Resources Section
+- Learning Kubernetes Guides Section
+
+### Changed
+
+- Learking Kubernetes: Resources
+- Learning Kubernetes: References
+- Learning Kubernetes: Move Kuber Router Guide
+- Learning Kubernetes: Add A User
+- Learning Kubernetes Section Arrangement
+- Learning Kubernetes Networking
+
+### Removed
+
+- Learning Kubernetes: Commands to Know Section
+
 ## [0.7.2]
 
 ### Changed
