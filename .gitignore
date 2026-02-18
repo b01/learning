@@ -6,6 +6,7 @@
 
 # Files
 # -----
+*.pem
 /encryption/gpg-backup.ps1
 /golang/webapp-pinger/.config/docker/backend/.ash_history
 /golang/webapp-pinger/.config/docker/backend/.ash_history-02
