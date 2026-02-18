@@ -10,4 +10,4 @@ CN = kube-router
 basicConstraints     = CA:FALSE
 extendedKeyUsage     = clientAuth, serverAuth
 keyUsage             = critical, digitalSignature, keyEncipherment
-subjectAltName       = IP:127.0.0.1, IP:${IPV4}, IP:${IPV6}
+subjectAltName       = IP:127.0.0.1, IP:${IPV4}, IP:${IPV6}, DNS: control-plane
