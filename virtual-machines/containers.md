@@ -4,7 +4,7 @@ General issues you can run into when working with containers.
 
 ## Docker and Go Workspaces
 
-This can be an amazing combo and greatly speed up development. Howerver, it can
+This can be an amazing combo and greatly speed up development. However, it can
 be tricky the first few times or if you haven't used it in a while.
 
 1. `cd` into your project and run `go work init .` the dot there is important
