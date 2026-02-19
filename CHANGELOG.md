@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.0]
+
+### Added
+
+- Learning Linux by Adding Unix Phiolosophy
+- Learning Git To Removed Deleted Staged File
+- Installing Kubernetes in the Cloud
+
+### Changed
+
+- Learning Linux Prefix with Sudo
+- Learning Kubernetes: Kubeadm Init Config
+- Learning Kubernetes: Upgraded Versions
+- Learning Kubernetes: Cloud Install Title
+- Learning Kubernetes: Update Cloud Install
+
+### Fixed
+
+- Learning Kubernetes: Configure Kube-router
+- Learning Kubernetes: Add Dual-Stack Nodes
+- Learning Kubernetes: Kube-router Guide
+
+### Regular Maintenance
+
+- Learning VMs Typo
+- Updated Git Ingore PEM Files
+
 ## [0.8.0]
 
 ### Added
