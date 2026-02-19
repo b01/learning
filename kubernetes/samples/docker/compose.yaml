@@ -1,0 +1,15 @@
+services:
+  dev:
+    build:
+      context: .
+    environment:
+      AWS_PROFILE: ${AWS_PROFILE}
+      BUCKET_NAME: ${BUCKET_NAME}
+    image: kohirens/learning-kubernetes:ubuntu
+    volumes:
+      - ~/.aws/:/root/.aws/
+      - go_mod_cache:/root/pkg/mod
+      - ./:/root/kubernetes-assets/
+
+volumes:
+  go_mod_cache: null
