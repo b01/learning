@@ -1,0 +1,49 @@
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: ${IPV6_ADDR}
+  bindPort: 6443
+name: control-plane-01
+nodeRegistration:
+  kubeletExtraArgs:
+    - name: node-ip
+      value: ${IPV6_ADDR},${IPV4_ADDR}
+    - name: image-credential-provider-config
+      value: /var/lib/kubelet/credential-provider-config.yaml
+    - name: image-credential-provider-bin-dir
+      value: /usr/local/bin
+    - name: cloud-provider
+      value: external
+---
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+kubernetesVersion: 1.34.0
+networking:
+  dnsDomain: cluster.local
+  podSubnet: fd12:3456:789a:1000::/56,10.244.0.0/16
+  serviceSubnet: fd12:3456:789a:2000::/112,10.96.0.0/16
+controlPlaneEndpoint: control-plane
+apiServer:
+  # When you set the advertiseAddress to a non-loopback address, you must add
+  # the loopback address to the certSANs list.
+  certSANs:
+   - ::1
+   - 0:0:0:0:0:0:0:1
+   - ${IPV6_ADDR}
+   - 127.0.0.1
+   - ${IPV4_ADDR}
+   - ${HOSTNAME}
+   - control-plane
+controllerManager:
+  extraArgs:
+    - name: cloud-provider
+      value: external
+    - name: leader-elect
+      value: "true"
+    - name: external-cloud-volume-plugin
+      value: aws
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  KubeletServiceAccountTokenForCredentialProviders: true

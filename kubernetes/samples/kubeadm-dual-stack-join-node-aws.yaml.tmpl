@@ -1,0 +1,19 @@
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: JoinConfiguration
+discovery:
+  bootstrapToken:
+    apiServerEndpoint: control-plane:6443
+    token: "${KUBE_TOKEN}"
+    caCertHashes:
+      - "${KUBE_TOKEN_SHA}"
+    # change auth info above to match the actual token and CA certificate hash for your cluster
+nodeRegistration:
+  kubeletExtraArgs:
+    - name: "node-ip"
+      value: "${IPV6_ADDR},${IPV4_ADDR}"
+    - name: image-credential-provider-config
+      value: /var/lib/kubelet/credential-provider-config.yaml
+    - name: image-credential-provider-bin-dir
+      value: /usr/local/bin
+    - name: cloud-provider
+      value: external
