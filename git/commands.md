@@ -30,3 +30,5 @@ So make sure you use the correct one.
 ```text
 machine github.com login <username> password <personal-access-token>
 ```
+
+Remove a deleted file from staging with `git restore --staged <delete-file>`.
