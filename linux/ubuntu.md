@@ -10,7 +10,7 @@ echo "your-new-name" | sudo tee /etc/hostname
 or recently:
 
 ```shell
-hostnamectl set-hostname new-hostname
+sudo hostnamectl set-hostname new-hostname
 ```
 
 ## Show all setting for a particular module:
