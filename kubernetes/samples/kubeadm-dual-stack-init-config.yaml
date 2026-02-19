@@ -24,4 +24,4 @@ apiServer:
    - 127.0.0.1
    - 192.168.56.11
 
-# sudo kubeadm init --config=kubeadm-dual-stack-config.yaml
+# sudo kubeadm init --config=kubeadm-dual-stack-init-config.yaml
