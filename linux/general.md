@@ -4,6 +4,11 @@ Notes for in general everyday shelling.
 
 Be sure to also check out [Bash Features] for all your Bashy needs!
 
+## Unix Philosophy
+
+1. Write programs that do one thing and do it well.
+2. Write programs to work together.
+3. Write programs to handle text streams, because that is a universal interface.
 
 ## passwd
 
