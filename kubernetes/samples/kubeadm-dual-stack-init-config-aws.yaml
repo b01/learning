@@ -1,13 +1,17 @@
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 localAPIEndpoint:
-  advertiseAddress: 2000:192:168:56::11
+  advertiseAddress: 2600:1f16:1ce1:3302:29cf:b10c:b8fb:66aa
   bindPort: 6443
 name: control-plane-01
 nodeRegistration:
   kubeletExtraArgs:
     - name: node-ip
-      value: 2000:192:168:56::11,192.168.56.11
+      value: 2600:1f16:1ce1:3302:29cf:b10c:b8fb:66aa,10.96.138.24
+    - name: image-credential-provider-config
+      value: /var/lib/kubelet/credential-provider-config.yaml
+    - name: image-credential-provider-bin-dir
+      value: /usr/local/bin
 ---
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
@@ -23,8 +27,11 @@ apiServer:
   certSANs:
    - ::1
    - 0:0:0:0:0:0:0:1
-   - 2000:192:168:56::11
+   - 2600:1f16:1ce1:3302:29cf:b10c:b8fb:66aa
    - 127.0.0.1
-   - 192.168.56.11
-
-# sudo kubeadm init --config=kubeadm-dual-stack-init-config.yaml
+   - 10.96.138.24
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  KubeletServiceAccountTokenForCredentialProviders: true
