@@ -22,6 +22,25 @@ systems.
 
 See [GNU Privacy Guard] for more in-depth information.
 
+## Table of Contents
+
+* [Make a New GPG Key](#make-a-new-gpg-key)
+* [Revocation Certificate](#revocation-certificate)
+* [Resources](#resources)
+* [General Commands](#general-commands)
+* [Backup](#backup)
+* [Restore](#restore)
+* [Add to Git CLI](#add-to-git-cli)
+* [Add to GitHub](#add-to-github)
+* [Add Additional UIDs](#add-additional-uids)
+* [Add A Subkey](#add-a-subkey)
+* [Revoke a Key](#revoke-a-key)
+* [Remove UID](#remove-uid)
+* [Encrypt & Decrypt](#encrypt--decrypt)
+* [List of Key Servers](#list-of-key-servers)
+* [Publish To A Key Server](#publish-to-a-key-server)
+* [Hide Your Private Email Address](#hide-your-private-email-address)
+
 ## Make a New GPG Key
 
 1. Open a terminal and generate a new key with: `gpg --full-generate-key`,
