@@ -44,3 +44,13 @@ function Base64-PrintEncodedString() {
     Write-Host "${EncodedString}`n"
 }
 ```
+
+## Get A Formatted Date
+
+```shell
+Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
+# Example usage
+$currentDate=(Get-Date -Format "yyyy-MM-dd")
+echo "Salam ${currentDate}" > hello-${currentDate}.txt
+```
