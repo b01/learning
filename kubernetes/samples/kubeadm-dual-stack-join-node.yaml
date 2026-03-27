@@ -10,4 +10,4 @@ discovery:
 nodeRegistration:
   kubeletExtraArgs:
     - name: "node-ip"
-      value: "2600:1f16:1ce1:3302:a5c9:2527:15ee:bffb,10.96.141.212"
+      value: "<paste-ipv6-address>,<paste-ipv4-address>"
