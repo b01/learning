@@ -32,7 +32,26 @@ echo ${IP6}
 
 The `<<<` redirects the content of the output to read's standard input.
 
-## Resources
+## Tar Usage
+
+To tar a directory, use the  command to create an uncompressed archive, or  to
+create a compressed gzip archive. The  flag creates,  shows progress,  defines
+the file name, and  compresses.
+
+Create a .tar.gz archive (compressed):
+
+```shell
+tar -czvf archive.tar.gz /path/to/directory
+```
+
+Key Options Breakdown
+
+`-c` - Create a new archive.
+`-v` - Verbose; list files as they are processed.
+`-f` - Filename; specifies the name of the archive file.
+`-z` - Compress with gzip.
+
+Extract a tar file use `tar -xvf archive.tar`.
 
 ---
 
