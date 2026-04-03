@@ -117,12 +117,9 @@ proper. After which you should be ready to take the exam, and God Willing, pass.
 
 ## Step 5 Commands To Increase Your Speed
 
-[Commands To Know] is a list of items that can help you perform task quickly.
+[Useful Commands] is a list of items that can help you perform task quickly.
 If you're not familiar with them, then they may slow you down at first. But
 after some comprehension and practice, they should speed you up.
-
-They are also standard and quite useful for any kind of routine maintenance and
-configuration of a Linux box, and especially when troubleshooting a cluster.
 
 ## Samples
 
@@ -149,7 +146,6 @@ I started to focus on this repo alone. So here we are.
 [Certified Kubernetes Administrator (CKA) Course]: https://github.com/kodekloudhub/certified-kubernetes-administrator-course?tab=readme-ov-file
 [Kubernetes The Hard Way by Kelsey Hightower]: https://github.com/kelseyhightower/kubernetes-the-hard-way
 [Kubernetes The Hard Way]: https://github.com/b01/kubernetes-the-hard-way
-[Commands To Know]: /kubernetes/commands-to-know.md#commands-to-know
+[Useful Commands]: /kubernetes/017.5-useful-commands.md
 [CKA Exam Guide v1.32]: /kubernetes/007.0-cka-exam-curriculum-v1.32.md
 [kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md
-[Local Storage Class Manifest]: /kubernetes/samples/sc-local.yml
