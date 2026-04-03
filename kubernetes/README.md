@@ -12,6 +12,10 @@ This overview covers Kubernetes installation and administration.
 
 ## Step 1 Take an Online Course
 
+NOTE: This Guide has evolved a lot since I started it. So much, that I wonder
+      if you could even pass the exam without taking an online course.
+      In the future this step may be removed.
+
 This is how I assume most get into Kubernetes.
 While a course will serve as a good crash-course into Kubernetes, most of them
 swear they will be all you need to pass an exam. I found that their courses
@@ -22,14 +26,13 @@ away from this guide, but it jumps right into using Kubernetes.
 While it should be complete enough for you to go through as a beginner.
 There is no soft intro. You're expected to go through the material repeatedly
 until you understand it and can run a decent amount of commands without looking
-them up. There are also exercises that  will give you even more hand-on
+them up. There are also exercises that  will give you even more hands-on
 experience. Allowing you to learn how to administer Kubernetes so that your
 confident on your own.
 
 I took the [Certified Kubernetes Administrator (CKA) Course] by KodeKloud. It
 will help you get started with hands-on very quickly. It will give you a good
-idea of the inner workings of Kubernetes. However, while online courses are a
-good primer, in my opinion, they are not enough to take the exam. You'll need
+idea of the inner workings of Kubernetes. However, you'll need
 more repetition and troubleshooting experience in order to take the CKA exam
 and pass; and even more to talk confidently in interviews.
 
@@ -42,23 +45,35 @@ a critical part of the learning process.
 
 ## Step 2 Work Through Kubernetes The Hard Way
 
-In the CKA exam you may need to know where a given configuration is for any
-given component. Working through [Kubernetes The Hard Way by Kelsey Hightower]
-can help with that and more. Going through this material should help you learn
-where basically everything is. Just be careful not to fall into the
-copy-paste trap as we often do with most tutorials. You won't learn anything
-that way. So I ran though this tutorial until I understood why and how all the
-things were done.
+In the CKA exam you'll need to know where a given configuration for a component
+is located on the system, and the purpose of each component so you know exactly
+where to begin to troubleshoot a problem quickly.
 
-I even made my own fork of [Kubernetes The Hard Way] to track my changes and
-tweaks to reinforce that knowledge. This includes a vagrant file to set up
-Linux virtual machines to use as infrastructure for a local Kubernetes cluster.
+Walking through deploying a Kubernetes cluster the hard way will help improve
+your comprehension and better prepare you for the real thing, exam or work-wise.
 
-You should know that I worked through this more than once, in fact I did it to
-the point where I could set up a cluster the hard way by heart, in less than 1
-hour without looking at the guide. That way I would be more comfortable on the
-exam or any interviews. Only then did I move over to setting up a cluster using
-`kubeadm`.
+This Guide will teach you the type of things you'll need to know that online
+courses don't even touch. Going through this material should help you gain the
+ability to troubleshoot just about anything with Kubernetes.
+Just be careful not to fall into the copy-paste trap as we often do with most
+tutorials. You won't learn anything that way. So run though this guide until
+you remember without having to look it up. You don't want to be on an emergency
+call to find a Kubernetes issue and Googling everything; that just gives someone
+else the opportunity to outshine you.
+
+This Guide includes a vagrant file to set up Linux virtual machines using
+VirtualBox to use as infrastructure for a local Kubernetes cluster. So you will
+get hands-on experience, if your computer can handle the requirements.
+
+You should know that I worked through this more than once. In fact, I did it to
+the point where I could set up a cluster the hard way by heart. My best time I
+was able to do it in less than 1 hour without looking at this guide. You'll want
+to get to that point too. That way you'll be more comfortable on the
+exam or the technical part of an interview. Only then did I move over to setting
+up a cluster using `kubeadm`. This guide also walks through setting up a
+self-hosted non-EKS cluster in AWS, if you are O.K. with spending $5-10 US
+dollars for the extra practice. No it doesn't go to me, that is what it may
+cost to use the AWS resources.
 
 ## Step 3 Install a Cluster with kubeadm
 
@@ -70,16 +85,25 @@ install a CNI plugin; then add worker nodes. It takes care of a lot of
 heavy lifting; streamlining the process.
 
 This guide walks you through the complete process, in addition, it also points
-out the links where this info originated from. As you will be able
-to use those same links in your CKA exam.
+out the links where this info originated from. As you will be able to use those
+same links in your CKA exam.
 
 A notable difference between setting things up manually and using a tool
-like `kubeadm` is that configurations are not in the same locations. In fact,
-`kubeadm` runs the cluster components in a self-contained way. Meaning the
-control plane components run as pods in the cluster that you spin up. Cluster
-components have their configurations mounted in their containers using
-Kubernetes ConfigMaps. And yet, this is all configurable as with installing
-things manually.
+like `kubeadm` is that configurations for the same components may end up in
+different locations. Also, `kubeadm` always runs the cluster components, except
+the kubelet, as Pods in the cluster that you spin up. Some clusters out there
+can set them up to run on the node itself, which is something I did not understand
+before I took the CKA exam. Something those online courses I took did not make
+clear. Its important because it determines where you look for a components'
+config.
+
+With `kubeadm`, cluster components have their configurations mounted in their
+containers using Kubernetes ConfigMaps. So they are stored in the cluster
+itself. While the `kubelet`'s config is located on the
+host machine, usually in `/var/lib/kubelet/config.yaml`. Pay attention to stuff
+like this, it will help you avoid headache during the learning process. If you
+are confuse about that, it should become clear by the time you reach the end of
+this guide. If not, then post an issue on GitHub for this repo.
 
 ## Step 4 CKA Exam Curriculum
 
@@ -103,6 +127,22 @@ configuration of a Linux box, and especially when troubleshooting a cluster.
 ## Samples
 
 * [Local Storage Class Manifest]
+
+## Background
+
+Online courses I took failed to teach me the finer details of Kubernetes,
+something that would trip me up on the exam the first time I took it. So I
+began searching how to really understand Kubernetes. That's when I ran into
+[Kubernetes The Hard Way by Kelsey Hightower]. Working through it helped me
+start to get a better understanding. So I even made my own fork of [Kubernetes
+The Hard Way], thinking I could contribute updates there were missing. At the
+same time I noticed that there were still some pretty big gaps in my knowledge.
+So I made this repository to fill those in.
+
+So I began placing my extra learning into this guide (compedium of my knowledge). However, while developing
+this guide, I went deeper than "Kubernetes the Hard Way" did, and I just kept
+updating it. Once I started using added the Virtual environment to practice
+I started to focus on this repo alone. So here we are.
 
 ---
 
