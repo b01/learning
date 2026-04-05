@@ -13,8 +13,10 @@ Currently, I think Kubernetes is the only subject that has a good ToC.
 
 * [Kubernetes]
 * [Tableau]
+* [Virtual Machines]
 
 ---
 
 [Kubernetes]: /kubernetes/README.md
 [Tableau]: /tableau
+[Virtual Machines]: /virtual-machines/README.md
