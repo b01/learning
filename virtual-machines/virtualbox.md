@@ -43,7 +43,8 @@ These steps enable the EFI on the Motherboard.
     Adapter 2.
 12. Click the "OK" button to close the settings dialog.
 13. Click the "Start" button to boot the machine, the installation process
-    should begin shortly, follow the prompts to complete the installation
+    should begin shortly, follow the prompts to complete the installation.
+
     NOTE: Before you reboot, remove the ISO from the CD-ROM, or the system will
     do it for you, but in an unintuitive way.
 14. Ready the system for VirtualBox Guest add-ons:
