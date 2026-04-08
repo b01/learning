@@ -54,3 +54,10 @@ Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 $currentDate=(Get-Date -Format "yyyy-MM-dd")
 echo "Salam ${currentDate}" > hello-${currentDate}.txt
 ```
+
+## MD5 Encode
+
+**Encod a file**
+```shell
+certutil -hashfile .\ubuntu-live-quokka-amd64-efi.box MD5
+```
