@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.1]
+
+### Added
+
+- Learning Virtual Machines Kubernetes Base VM
+- Learning Kubernetes Load Balancer Guide
+- Linux Command Tar Example
+- Learning Linux Password Change
+
+### Changed
+
+- Learning Table of Contents
+- Learning Kubernetes Cluster Installation in the Cloud
+- Learning Kubernetes Guides ToC
+- Learning Kubernetes Guides
+- Learning Kubernetes Useful Commands
+- Learning Kubernetes Storage
+- Learning Kubernetes Layout
+
 ## [0.10.0]
 
 ### Added
