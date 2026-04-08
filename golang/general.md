@@ -69,10 +69,12 @@ So I start like this.
 3. Then add your dependency with `go work use github.com/kohirens/stdlib`.
 4. Then build `go build -C ./cmd/local`
 
-Go into the Golang project. and type `go work init`, no need to specify the
-directory if your already in it. It will automatically use the current directory.
-Then just type `go work use <relative/full>` path of the directory where the
-dependency module lives.
+If you go into the Golang project directory that contains a `go.mod` file
+and type `go work init`, if you do not specify a directory, then it will use
+the current directory. Then just type `go work use <relative/full>` path of the
+directory where the dependency module lives.
 
-I stick to relative paths based on src being in my
-home directory. This works well when using containers on Windows. 
+I stick to relative paths based on src being in my home directory. This works
+well when using containers on Windows. Though you will have to modify `go.work`
+and change backslash `\` to forward `/` so that it can work on both windows and
+Linux containers.
