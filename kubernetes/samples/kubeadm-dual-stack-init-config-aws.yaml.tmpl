@@ -3,8 +3,8 @@ kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: ${IPV6_ADDR}
   bindPort: 6443
-name: control-plane-01
 nodeRegistration:
+  name: control-plane-01
   kubeletExtraArgs:
     - name: node-ip
       value: ${IPV6_ADDR},${IPV4_ADDR}
@@ -23,6 +23,7 @@ networking:
   podSubnet: fd12:3456:789a:1000::/56,10.244.0.0/16
   serviceSubnet: fd12:3456:789a:2000::/112,10.96.0.0/16
 controlPlaneEndpoint: control-plane
+clusterName: kubernetes
 apiServer:
   # When you set the advertiseAddress to a non-loopback address, you must add
   # the loopback address to the certSANs list.
