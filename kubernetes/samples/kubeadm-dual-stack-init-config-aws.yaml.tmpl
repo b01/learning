@@ -4,7 +4,7 @@ localAPIEndpoint:
   advertiseAddress: ${IPV6_ADDR}
   bindPort: 6443
 nodeRegistration:
-  name: control-plane-01
+  # name: control-plane-01 Do NOT set this, it will conflict with
   kubeletExtraArgs:
     - name: node-ip
       value: ${IPV6_ADDR},${IPV4_ADDR}
@@ -33,7 +33,7 @@ apiServer:
    - ${IPV6_ADDR}
    - 127.0.0.1
    - ${IPV4_ADDR}
-   - ${HOSTNAME}
+   - ${HOST_NAME}
    - control-plane
 controllerManager:
   extraArgs:
