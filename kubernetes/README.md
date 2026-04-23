@@ -1,6 +1,11 @@
 # Learning: Kubernetes
 
-This overview covers Kubernetes installation and administration.
+This Kubernetes booklet starts from leaning what a cluster is; To setting up
+one for practice. Then moving into various practice exercises until you are
+confident you can manage one or more professionally in a real production
+environment.
+
+Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 
 ## Overview
 
@@ -10,28 +15,25 @@ This overview covers Kubernetes installation and administration.
 4. [Step 4 CKA Exam Curriculum](#step-4-cka-exam-curriculum)
 5. [Step 5 Commands To Increase Your Speed](#step-5-commands-to-increase-your-speed)
 
-## Step 1 Take an Online Course
+## Taking an Online Course
 
-NOTE: This Guide has evolved a lot since I started it. So much, that I wonder
-      if you could even pass the exam without taking an online course.
-      In the future this step may be removed.
+This is how I assume most get into Kubernetes. For myself, I was working at a
+job and thrown into it.
 
-This is how I assume most get into Kubernetes.
 While a course will serve as a good crash-course into Kubernetes, most of them
 swear they will be all you need to pass an exam. I found that their courses
 alone were not enough, at least for me, and maybe you too if you're a beginner.
 
-Taking a course is up to you, it's how I started. I don't want to steer you
-away from this guide, but it jumps right into using Kubernetes.
-While it should be complete enough for you to go through as a beginner.
-There is no soft intro. You're expected to go through the material repeatedly
-until you understand it and can run a decent amount of commands without looking
-them up. There are also exercises that  will give you even more hands-on
-experience. Allowing you to learn how to administer Kubernetes so that your
-confident on your own.
+Taking a course is up to you. I don't want to steer you away from this guide,
+but it jumps right into using Kubernetes.
+While it should be complete enough for a beginner, there is no soft intro.
+You're expected to go through the material repeatedly until you understand it
+and can run a decent amount of commands without looking them up. There are
+also exercises that will give you even more hands-on experience. Allowing you
+to learn how to administer Kubernetes so that your confident on your own.
 
 I took the [Certified Kubernetes Administrator (CKA) Course] by KodeKloud. It
-will help you get started with hands-on very quickly. It will give you a good
+will help you get started with hands-on very quickly.; and give you a good
 idea of the inner workings of Kubernetes. However, you'll need
 more repetition and troubleshooting experience in order to take the CKA exam
 and pass; and even more to talk confidently in interviews.
@@ -149,3 +151,4 @@ I started to focus on this repo alone. So here we are.
 [Useful Commands]: /kubernetes/017.5-useful-commands.md
 [CKA Exam Guide v1.32]: /kubernetes/007.0-cka-exam-curriculum-v1.32.md
 [kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md
+[Preface]: /kubernetes/000.0-preface.md
