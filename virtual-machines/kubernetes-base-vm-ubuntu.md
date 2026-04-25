@@ -2,7 +2,7 @@
 
 1. Download the latest version of Ubuntu from [Get Ubuntu Server].
 2. Open Oracle VirtualBox application and click "New" to make a new VM, set the
-   name to something like `ubuntu-live-quokka-amd64-efi`. Replace this with
+   name to something like `ubuntu-server-lts-raccoon-amd64-efi`. Replace this with
    properties of the version ISO image you will be using.
 3. Skip inserting any ISO and click.
 
@@ -22,7 +22,7 @@
 8. Now select the "Description" tab and enter a relevant description, like:
 
    ```text
-   Ubuntu Server 25.10 Live Questing Quokka. User is "vagrant" with password "vagrant" and sudo access. SSH server is active on boot.
+   Ubuntu Server 26.04 LTS Resolute Raccoon. User is "vagrant" with password "vagrant" with sudo access. SSH server is active on boot.
    ```
 9. Find "System" and the "Motherboard" tab, then check the
    `Enable EFI (special OSes only)`, select "ICH9" Chipset, and set "TMP" to
@@ -70,22 +70,22 @@
 23. Open a CLI terminal and move to a directory where you can work.
 24. We can export the machine to Vagrant with the `package` command like so:
     ```shell
-    vagrant package --base ubuntu-live-quokka-amd64-efi --debug --output ubuntu-live-quokka-amd64-efi.box
+    vagrant package --base ubuntu-server-lts-raccoon-amd64-efi --debug --output ubuntu-server-lts-raccoon-amd64-efi.box
     ```
 25. Now we can test this new box by adding it to Vagrant:
     ```shell
-    vagrant box add --name ubuntu/ubuntu-live-quokka-amd64-efi .\ubuntu-live-quokka-amd64-efi.box
+    vagrant box add --name ubuntu/ubuntu-server-lts-raccoon-amd64-efi .\ubuntu-server-lts-raccoon-amd64-efi.box
     ```
 26. Use the Vagrantfile in the Kubernetes Learning repo to test it by chaning
     ```ruby
-    BOX_IMG = "ubuntu/ubuntu-live-quokka-amd64-efi"
+    BOX_IMG = "ubuntu/ubuntu-server-lts-raccoon-amd64-efi"
     BOX_VER = "0"
     ```
 27. Once your sure its working, run `vagrant destroy`.
 28. You'll need to calculate the MD5 for the box:
     ```shell
     # powershell
-    certutil -hashfile .\ubuntu-live-quokka-amd64-efi.box MD5
+    certutil -hashfile .\ubuntu-server-lts-raccoon-amd64-efi.box MD5
     ```
 29. Go log into [Vagrant Cloud]. Go to Vagrant. Click on your box registry.
 30. If it is a new box, then click Create a box, or click an existing box
