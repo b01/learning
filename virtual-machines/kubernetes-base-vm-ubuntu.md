@@ -57,7 +57,6 @@
 16. Set up the Vagrant [insecure key-pairs]
     ```shell
     wget https://raw.githubusercontent.com/hashicorp/vagrant/refs/heads/main/keys/vagrant.pub
-    wget https://github.com/hashicorp/vagrant/refs/heads/main/keys/vagrant.pub
     cat vagrant.pub | tee -a ~/.ssh/authorized_keys
     ```
 17. Ready the system for VirtualBox Guest add-ons:
