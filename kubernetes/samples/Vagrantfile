@@ -5,8 +5,8 @@
 # The default is "NO"
 ADD_JUMP_BOX = ENV['ADD_JUMP_BOX'] ? ENV['ADD_JUMP_BOX'] : "NO"
 
-BOX_IMG = "b01/ubuntu-live-quokka-amd64-efi"
-BOX_VER = "25.10"
+BOX_IMG = "b01/ubuntu-server-lts-raccoon-amd64-efi"
+BOX_VER = "26.04"
 
 # Time to wait for the VMs to boot up before timing out.
 BOOT_TIMEOUT_SEC = 300
