@@ -1,5 +1,5 @@
 serviceCIDR: "10.96.0.0/16"
-serviceCIDRv6: "2001:db8:42:0::/56"
+serviceCIDRv6: "fd12:3456:789a:1000::/56"
 antreaProxy:
   # To disable AntreaProxy, set this to false.
   enable: true
