@@ -2,7 +2,7 @@
 
 1. Download the latest version of Ubuntu from [Get Ubuntu Server].
 2. Open Oracle VirtualBox application and click "New" to make a new VM, set the
-   name to something like `ubuntu-server-lts-raccoon-amd64-efi`. Replace this with
+   name to something like `server-lts-raccoon-amd64-efi`. Replace this with
    properties of the version ISO image you will be using.
 3. Skip inserting any ISO and click.
 
@@ -32,7 +32,7 @@
     downloaded and select it.
 11. Go to "Network" section and click th "Adapter 2" tab, then select
     "NAT" and uncheck "Virtual Cable Connected" to prevent IP assignment, then
-    save.
+    click the "OK" button.
 12. Click the VM we just configured, and click the "Start" button to boot the
     machine and install the OS.
 13. Login to the system, remember the username and password is `vagrant`.
@@ -89,22 +89,22 @@
 24. Open a CLI terminal and move to a directory where you can work.
 25. We can export the machine to Vagrant with the `package` command like so:
     ```shell
-    vagrant package --base ubuntu-server-lts-raccoon-amd64-efi --debug --output ubuntu-server-lts-raccoon-amd64-efi.box
+    vagrant package --base server-lts-raccoon-amd64-efi --debug --output server-lts-raccoon-amd64-efi.box
     ```
 26. Now we can test this new box by adding it to Vagrant:
     ```shell
-    vagrant box add --name ubuntu/ubuntu-server-lts-raccoon-amd64-efi .\ubuntu-server-lts-raccoon-amd64-efi.box
+    vagrant box add --name ubuntu/server-lts-raccoon-amd64-efi .\server-lts-raccoon-amd64-efi.box
     ```
 27. Use the Vagrantfile in the Kubernetes Learning repo to test it by chaning
     ```ruby
-    BOX_IMG = "ubuntu/ubuntu-server-lts-raccoon-amd64-efi"
+    BOX_IMG = "ubuntu/server-lts-raccoon-amd64-efi"
     BOX_VER = "0"
     ```
 28. Once your sure its working, run `vagrant destroy`.
 29. You'll need to calculate the MD5 for the box:
     ```shell
     # powershell
-    certutil -hashfile .\ubuntu-server-lts-raccoon-amd64-efi.box MD5
+    certutil -hashfile .\server-lts-raccoon-amd64-efi.box MD5
     ```
 30. Go log into [Vagrant Cloud]. Go to Vagrant. Click on your box registry.
 31. If it is a new box, then click Create a box, or click an existing box
