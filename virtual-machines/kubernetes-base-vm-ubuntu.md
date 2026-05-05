@@ -18,7 +18,7 @@
    to 1-2 GB.
 6. Select the VM and click settings.
 7. In "General" select the "Features" tab and change "Shared Clipboard" to
-   "Host to Guest" to allow copy and paste from the host to the Guest OS.
+   "Bidirectional" to allow copy and paste from the host to the Guest OS.
 8. Now select the "Description" tab and enter a relevant description, like:
 
    ```text
@@ -31,10 +31,12 @@
     small circle drive Icon will appear. Click that and find the ISO image you
     downloaded and select it.
 11. Go to "Network" section and click th "Adapter 2" tab, then select
-    "NAT" and uncheck "Virtual Cable Connected" to prevent IP assignment.
-12. Click the "Start" button to boot the machine and install the OS.
+    "NAT" and uncheck "Virtual Cable Connected" to prevent IP assignment, then
+    save.
+12. Click the VM we just configured, and click the "Start" button to boot the
+    machine and install the OS.
 13. Login to the system, remember the username and password is `vagrant`.
-14. Next allow [Password-less Sudo] for the vagrant:
+14. Next allow [Password-less Sudo] for the vagrant user:
     ```shell
     echo "vagrant ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
     ```
