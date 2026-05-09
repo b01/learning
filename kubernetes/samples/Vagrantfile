@@ -5,7 +5,7 @@
 # The default is "NO"
 ADD_JUMP_BOX = ENV['ADD_JUMP_BOX'] ? ENV['ADD_JUMP_BOX'] : "NO"
 
-BOX_IMG = "b01/ubuntu-server-lts-raccoon-amd64-efi"
+BOX_IMG = "b01/ubuntu-server"
 BOX_VER = "26.04"
 
 # Time to wait for the VMs to boot up before timing out.
@@ -99,8 +99,6 @@ Vagrant.configure("2") do |config|
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://portal.cloud.hashicorp.com/vagrant/discover
-    # config.vm.box = "base"
-
     config.vm.box = BOX_IMG
     config.vm.box_version = BOX_VER
     config.vm.boot_timeout = BOOT_TIMEOUT_SEC
