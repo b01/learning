@@ -108,6 +108,10 @@ Vagrant.configure("2") do |config|
     # `vagrant box outdated`. This is not recommended.
     config.vm.box_check_update = false
 
+    # Sometimes the public key is not in the authorized_keys, so login with:
+    #config.ssh.username = 'vagrant'
+    #config.ssh.password = 'vagrant'
+
     # Use an environment variable to dynamically turn off deploying a jump-box.
     if ADD_JUMP_BOX == "YES"
         # Provision a JumpBox
