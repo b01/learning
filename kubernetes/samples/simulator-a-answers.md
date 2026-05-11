@@ -4,7 +4,7 @@
 
 ```shell
 kubectl config get-context --kubeconfig /opt/course/1/kubeconfig --no-headers
-kubectl config current-context
+kubectl config current-context --kubeconfig /opt/course/1/kubeconfig
 kubectl config view --kubeconfig /opt/course/1/kubeconfig \
   --raw -o jsonpath='{.users[0].user.client-certificate-data}' \
   | base64 -d | openssl x509 -text -noout | tee /opt/course/1/cert
