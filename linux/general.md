@@ -34,9 +34,9 @@ The `<<<` redirects the content of the output to read's standard input.
 
 ## Tar Usage
 
-To tar a directory, use the  command to create an uncompressed archive, or  to
-create a compressed gzip archive. The  flag creates,  shows progress,  defines
-the file name, and  compresses.
+To tar a directory, use the command to create an uncompressed archive, or to
+create a compressed gzip archive. The flag creates, shows progress, defines
+the file name, and compresses.
 
 Create a .tar.gz archive (compressed):
 
