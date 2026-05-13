@@ -53,6 +53,38 @@ Key Options Breakdown
 
 Extract a tar file use `tar -xvf archive.tar`.
 
+## While Loops
+
+Loop through lines in a file
+
+```shell
+# Make a test file.
+cat <<TXT | tee test-input-01.txt
+01 02 03
+04
+05 06 07
+TXT
+
+# Loop over the file.
+while read var1 var2 var3
+do
+   echo "var1 = ${var1}, var2 = ${var2}, var3 = ${var3}"
+done < test-input-01.txt
+```
+
+`read` will read each word into a variable
+`while` will loop on every newline and end on EOF.
+Input is taken after `done`.
+The structure of the look is also important:+
+```shell
+while <test>
+do
+    <commands>
+done <optional>
+```
+
+## Reading input
+
 ---
 
 [Bash Features]: https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
