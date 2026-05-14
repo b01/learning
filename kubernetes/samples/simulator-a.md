@@ -37,12 +37,15 @@ kubectl scale statefulset -n project-h800 o3db --replicas=1
 
 ## Q4
 
-Check all available Pods in the Namespace project-c13 and find the names of
+Review:
+
+* [Resource requests and limits]: https://kubernetes.io/docs/concepts/workloads/pods/#resource-requests-and-limits
+
+Check all available Pods in the Namespace `project-c13` and find the names of
 those that would probably be terminated first if the nodes run out of resources
 (cpu or memory).
 
-Write the Pod names into /opt/course/4/pods-terminated-first.txt
-Install the metrics server, then user `k top pod -n project-c13`
+Write the Pod names into `/opt/course/4/pods-terminated-first.txt`
 
 # Q5
 

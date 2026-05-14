@@ -148,7 +148,7 @@ I started to focus on this repo alone. So here we are.
 [Certified Kubernetes Administrator (CKA) Course]: https://github.com/kodekloudhub/certified-kubernetes-administrator-course?tab=readme-ov-file
 [Kubernetes The Hard Way by Kelsey Hightower]: https://github.com/kelseyhightower/kubernetes-the-hard-way
 [Kubernetes The Hard Way]: https://github.com/b01/kubernetes-the-hard-way
-[Useful Commands]: /kubernetes/017.5-useful-commands.md
-[CKA Exam Guide v1.32]: /kubernetes/007.0-cka-exam-curriculum-v1.32.md
+[Useful Commands]: /kubernetes/012.20-useful-commands.md
+[CKA Exam Guide v1.32]: /kubernetes/010.0-exam-prep.md
 [kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md
 [Preface]: /kubernetes/000.0-preface.md

@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c13-2x3-api-c848b775d
+  namespace: project-c13
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: c848b775d
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: c848b775d
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 20Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c13-2x3-web-6989fb8dc6
+  namespace: project-c13
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: 6989fb8dc6
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: 6989fb8dc6
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 10Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c13-3cc-data-96d47bf85
+  namespace: project-c13
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: 96d47bf85
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: 96d47bf85
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 30m
+              memory: 10Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c13-3cc-web-767b98dd48
+  namespace: project-c13
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: 767b98dd48
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: 767b98dd48
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 10Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c13-3cc-runner-heavy-8687d66dbb
+  namespace: project-c13
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: 8687d66dbb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: 8687d66dbb
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+---
+#c13-2x3-api-c848b775d-7nggw{"requests":{"cpu":"50m","memory":"20Mi"}}
+#c13-2x3-api-c848b775d-qrrlp{"requests":{"cpu":"50m","memory":"20Mi"}}
+#c13-2x3-api-c848b775d-qtrs7{"requests":{"cpu":"50m","memory":"20Mi"}}
+#c13-2x3-web-6989fb8dc6-4nc9z{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-2x3-web-6989fb8dc6-7xfdx{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-2x3-web-6989fb8dc6-98pr6{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-2x3-web-6989fb8dc6-9zpkj{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-2x3-web-6989fb8dc6-j2mgb{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-2x3-web-6989fb8dc6-jcwk9{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-3cc-data-96d47bf85-dc8d4{"requests":{"cpu":"30m","memory":"10Mi"}}
+#c13-3cc-data-96d47bf85-f9gd2{"requests":{"cpu":"30m","memory":"10Mi"}}
+#c13-3cc-data-96d47bf85-fd9lc{"requests":{"cpu":"30m","memory":"10Mi"}}
+#c13-3cc-runner-heavy-8687d66dbb-gnxjh{}
+#c13-3cc-runner-heavy-8687d66dbb-przdh{}
+#c13-3cc-runner-heavy-8687d66dbb-wqwfz{}
+#c13-3cc-web-767b98dd48-5b45q{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-3cc-web-767b98dd48-5vldf{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-3cc-web-767b98dd48-dd7mc{"requests":{"cpu":"50m","memory":"10Mi"}}
+#c13-3cc-web-767b98dd48-pb67p{"requests":{"cpu":"50m","memory":"10Mi"}}
