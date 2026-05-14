@@ -7,8 +7,6 @@ department.lima-workload.svc.cluster.local
 section100.section.lima-workload.svc.cluster.local
 1-2-3-4.kube-system.pod.cluster.local
 
-
-
 ## Q2
 
 ```shell
