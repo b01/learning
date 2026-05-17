@@ -109,9 +109,9 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [Control Plane]: /kubernetes/001.0-control-plane.md
 [kubelet]: /kubernetes/001.1-kubelet.md
 [etcd]: /kubernetes/001.2-etcd.md
-[[kube-apiserver]]: /kubernetes/001.3-kube-apiserver.md
+[kube-apiserver]: /kubernetes/001.3-kube-apiserver.md
 [kube-controller-manager]: /kubernetes/001.4-kube-controller-manager.md
-[[kube-scheduler]]: /kubernetes/001.5-kube-scheduler.md
+[kube-scheduler]: /kubernetes/001.5-kube-scheduler.md
 [kube-proxy]: /kubernetes/001.6-kube-proxy.md
 [Cluster Installation Overview]: /kubernetes/002.0-cluster-installation-overview.md
 [Local Virtual Environment]: /kubernetes/003.0-local-virtual-environment.md
