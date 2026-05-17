@@ -39,7 +39,7 @@ kubectl scale statefulset -n project-h800 o3db --replicas=1
 
 Review:
 
-* [Resource requests and limits]: https://kubernetes.io/docs/concepts/workloads/pods/#resource-requests-and-limits
+* [Resource requests and limits]
 
 Check all available Pods in the Namespace `project-c13` and find the names of
 those that would probably be terminated first if the nodes run out of resources
@@ -59,11 +59,16 @@ kubectl kustomize /opt/course/5/api-gateway/prod | kubectl apply -f -
 Using the Kustomize config at /opt/course/5/api-gateway do the following:
 
 Remove the ConfigMap horizontal-scaling-config completely
-Add HPA named api-gateway for the Deployment api-gateway with min 2 and max 4 replicas. It should scale at 50% average CPU utilisation
-In prod the HPA should have max 6 replicas
-Apply your changes for staging and prod so they're reflected in the cluster
+Add HPA named api-gateway for the Deployment api-gateway with min 2 and max 4
+replicas. It should scale at 50% average CPU utilization in prod, the HPA should
+have max 6 replicas. Apply your changes for staging and prod so they're
+reflected in the cluster.
 
 ## Q6
+
+Review:
+
+* [Create a PersistentVolume]
 
 Create a new PersistentVolume named safari-pv. It should have a capacity of 2Gi,
 accessMode ReadWriteOnce, hostPath /Volumes/Data and no storageClassName
@@ -75,8 +80,8 @@ and should not define a storageClassName. The PVC should bound to the PV
 correctly.
 
 Finally create a new Deployment safari in Namespace `project-t230` which mounts
-that volume at `/tmp/safari-data`. The Pods of that Deployment should be of image
-`httpd:2-alpine`.
+that volume at `/tmp/safari-data`. The Pods of that Deployment should be of
+image `httpd:2-alpine`.
 
 
 ## Q7
@@ -218,3 +223,8 @@ crictl inspect ba62e5d465ff0 | grep runtimeType
 
 
 ```
+
+---
+
+[Resource requests and limits]: https://kubernetes.io/docs/concepts/workloads/pods/#resource-requests-and-limits
+[Create a PersistentVolume]: https://kubernetes.io/docs/tutorials/configuration/configure-persistent-volume-storage/#create-a-persistentvolume
