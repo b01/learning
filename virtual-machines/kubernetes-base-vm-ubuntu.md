@@ -35,6 +35,8 @@
     click the "OK" button.
 12. Click the VM we just configured, and click the "Start" button to boot the
     machine and install the OS.
+    NOTE: After the OS installs, it will ask you to reboot. When you reboot it
+    will ask you to eject the CD, just use the menu to reset the VM.
 13. Login to the system, remember the username and password is `vagrant`.
 14. Next allow [Password-less Sudo] for the vagrant user:
     ```shell
@@ -78,36 +80,44 @@
     sudo mount /dev/cdrom /mnt/cdrom
     ```
 20. Run the installer `sudo /mnt/cdrom/VBoxLinuxAdditions.run`
-21. To restart the system and complete the process, run
+21. Then restart the system and complete the process, run
     ```shell
     sudo reboot
     ```
-    NOTE: Unmount the guess editions from the CD-ROM.
-22. Ensure `PasswordAuthentication yes` and `KbdInteractiveAuthentication yes`
-    are set in the `/etc/ssh/sshd_config`.
-23. Run `sudo systemctl poweroff` to shut down the machine.
-24. Open a CLI terminal and move to a directory where you can work.
-25. We can export the machine to Vagrant with the `package` command like so:
+22. After reboot, ensure `PasswordAuthentication yes` and
+    `KbdInteractiveAuthentication yes` are set in the `/etc/ssh/sshd_config`.
+23. You'll want to eject the guess editions from the CD-ROM so that it's not
+    part of the VM package, adding to its size.
+    ```shell
+    sudo eject /dev/sr0
+    ```
+    NOTE: You can look for the CD-ROM drive with:
+    ```shell
+    sudo ls -l /dev | grep "\->"
+    ```
+24. Run `sudo systemctl poweroff` to shut down the machine.
+25. Open a CLI terminal and move to a directory where you can work.
+26. We can export the machine to Vagrant with the `package` command like so:
     ```shell
     vagrant package --base server-lts-raccoon-amd64-efi --debug --output server-lts-raccoon-amd64-efi.box
     ```
-26. Now we can test this new box by adding it to Vagrant:
+27. Now we can test this new box by adding it to Vagrant:
     ```shell
     vagrant box add --name ubuntu/server-lts-raccoon-amd64-efi .\server-lts-raccoon-amd64-efi.box
     ```
-27. Use the Vagrantfile in the Kubernetes Learning repo to test it by chaning
+28. Use the Vagrantfile in the Kubernetes Learning repo to test it by chaning
     ```ruby
     BOX_IMG = "ubuntu/server-lts-raccoon-amd64-efi"
     BOX_VER = "0"
     ```
-28. Once your sure its working, run `vagrant destroy`.
-29. You'll need to calculate the MD5 for the box:
+29. Once your sure its working, run `vagrant destroy`.
+30. You'll need to calculate the MD5 for the box:
     ```shell
     # powershell
     certutil -hashfile .\server-lts-raccoon-amd64-efi.box MD5
     ```
-30. Go log into [Vagrant Cloud]. Go to Vagrant. Click on your box registry.
-31. If it is a new box, then click Create a box, or click an existing box
+31. Go log into [Vagrant Cloud]. Go to Vagrant. Click on your box registry.
+32. If it is a new box, then click Create a box, or click an existing box
     then select `Version` on the left menu. Once the
     page loads there should be an "Add Version" button somewhere on the page,
     use the version of Ubuntu.
