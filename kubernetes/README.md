@@ -7,148 +7,189 @@ environment.
 
 Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 
-## Overview
+## Table of Contents
 
-1. [Step 1 Take an Online Course](#step-1-take-an-online-course)
-2. [Step 2 Work Through Kubernetes The Hard Way](#step-2-work-through-kubernetes-the-hard-way)
-3. [Step 3 Install a Cluster with kubeadm](#step-3-install-a-cluster-with-kubeadm)
-4. [Step 4 CKA Exam Curriculum](#step-4-cka-exam-curriculum)
-5. [Step 5 Commands To Increase Your Speed](#step-5-commands-to-increase-your-speed)
-
-## Taking an Online Course
-
-This is how I assume most get into Kubernetes. For myself, I was working at a
-job and thrown into it.
-
-While a course will serve as a good crash-course into Kubernetes, most of them
-swear they will be all you need to pass an exam. I found that their courses
-alone were not enough, at least for me, and maybe you too if you're a beginner.
-
-Taking a course is up to you. I don't want to steer you away from this guide,
-but it jumps right into using Kubernetes.
-While it should be complete enough for a beginner, there is no soft intro.
-You're expected to go through the material repeatedly until you understand it
-and can run a decent amount of commands without looking them up. There are
-also exercises that will give you even more hands-on experience. Allowing you
-to learn how to administer Kubernetes so that your confident on your own.
-
-I took the [Certified Kubernetes Administrator (CKA) Course] by KodeKloud. It
-will help you get started with hands-on very quickly.; and give you a good
-idea of the inner workings of Kubernetes. However, you'll need
-more repetition and troubleshooting experience in order to take the CKA exam
-and pass; and even more to talk confidently in interviews.
-
-This was not my first CKA course, but I like KodeKloud because they provided
-good labs with feedback, guiding you down the right path. Which is an
-indispensable characteristic of any good technical course online or in-person.
-Providing confirmation that you are doing some things right is needed 
-when you're new to a subject; and a reassuring boost while learning. Again, it's
-a critical part of the learning process.
-
-## Step 2 Work Through Kubernetes The Hard Way
-
-In the CKA exam you'll need to know where a given configuration for a component
-is located on the system, and the purpose of each component so you know exactly
-where to begin to troubleshoot a problem quickly.
-
-Walking through deploying a Kubernetes cluster the hard way will help improve
-your comprehension and better prepare you for the real thing, exam or work-wise.
-
-This Guide will teach you the type of things you'll need to know that online
-courses don't even touch. Going through this material should help you gain the
-ability to troubleshoot just about anything with Kubernetes.
-Just be careful not to fall into the copy-paste trap as we often do with most
-tutorials. You won't learn anything that way. So run though this guide until
-you remember without having to look it up. You don't want to be on an emergency
-call to find a Kubernetes issue and Googling everything; that just gives someone
-else the opportunity to outshine you.
-
-This Guide includes a vagrant file to set up Linux virtual machines using
-VirtualBox to use as infrastructure for a local Kubernetes cluster. So you will
-get hands-on experience, if your computer can handle the requirements.
-
-You should know that I worked through this more than once. In fact, I did it to
-the point where I could set up a cluster the hard way by heart. My best time I
-was able to do it in less than 1 hour without looking at this guide. You'll want
-to get to that point too. That way you'll be more comfortable on the
-exam or the technical part of an interview. Only then did I move over to setting
-up a cluster using `kubeadm`. This guide also walks through setting up a
-self-hosted non-EKS cluster in AWS, if you are O.K. with spending $5-10 US
-dollars for the extra practice. No it doesn't go to me, that is what it may
-cost to use the AWS resources.
-
-## Step 3 Install a Cluster with kubeadm
-
-[kubeadm Cluster Install]
-
-`kubeadm` tool automates the PKI, configurations, and running components. You'll
-need to perform prerequisites on each machine, initialize the cluster,
-install a CNI plugin; then add worker nodes. It takes care of a lot of
-heavy lifting; streamlining the process.
-
-This guide walks you through the complete process, in addition, it also points
-out the links where this info originated from. As you will be able to use those
-same links in your CKA exam.
-
-A notable difference between setting things up manually and using a tool
-like `kubeadm` is that configurations for the same components may end up in
-different locations. Also, `kubeadm` always runs the cluster components, except
-the kubelet, as Pods in the cluster that you spin up. Some clusters out there
-can set them up to run on the node itself, which is something I did not understand
-before I took the CKA exam. Something those online courses I took did not make
-clear. Its important because it determines where you look for a components'
-config.
-
-With `kubeadm`, cluster components have their configurations mounted in their
-containers using Kubernetes ConfigMaps. So they are stored in the cluster
-itself. While the `kubelet`'s config is located on the
-host machine, usually in `/var/lib/kubelet/config.yaml`. Pay attention to stuff
-like this, it will help you avoid headache during the learning process. If you
-are confuse about that, it should become clear by the time you reach the end of
-this guide. If not, then post an issue on GitHub for this repo.
-
-## Step 4 CKA Exam Curriculum
-
-[CKA Exam Guide v1.32]
-
-This has the exact layout as the official PDF. It adds links to where you can
-learn each subject (bullet points) so that you know hot to perform them in the
-exam. You'll learn were every configuration is located and how to modify them as
-needed. Giving you just about every thing you need to administer a cluster
-proper. After which you should be ready to take the exam, and God Willing, pass.
-
-## Step 5 Commands To Increase Your Speed
-
-[Useful Commands] is a list of items that can help you perform task quickly.
-If you're not familiar with them, then they may slow you down at first. But
-after some comprehension and practice, they should speed you up.
-
-## Samples
-
-* [Local Storage Class Manifest]
-
-## Background
-
-Online courses I took failed to teach me the finer details of Kubernetes,
-something that would trip me up on the exam the first time I took it. So I
-began searching how to really understand Kubernetes. That's when I ran into
-[Kubernetes The Hard Way by Kelsey Hightower]. Working through it helped me
-start to get a better understanding. So I even made my own fork of [Kubernetes
-The Hard Way], thinking I could contribute updates there were missing. At the
-same time I noticed that there were still some pretty big gaps in my knowledge.
-So I made this repository to fill those in.
-
-So I began placing my extra learning into this guide (compedium of my knowledge). However, while developing
-this guide, I went deeper than "Kubernetes the Hard Way" did, and I just kept
-updating it. Once I started using added the Virtual environment to practice
-I started to focus on this repo alone. So here we are.
+* [Preface]
+* [Control Plane]
+    * [kubelet]
+    * [etcd]
+    * [kube-apiserver]
+    * [kube-controller-manager]
+    * [kube-scheduler]
+    * [kube-proxy]
+* [Cluster Installation Overview]
+* [Local Virtual Environment]
+    * [Setup A Virtual Environment]
+    * [Configure SSH From A JumpBox]
+    * [Install containerd]
+    * [Install Kubernetes Packages]
+* [Manual Cluster Install]
+    * [Generate Control Plane Certificates Manually]
+    * [Generate Control Plane kubeconfigs Manually]
+    * [Generate Static Pod Manifests]
+    * [Initialize the Control Plane]
+    * [TLS bootstrapping]
+    * [Configure Networking]
+    * [Add Workers]
+* [kubeadm Cluster Install]
+    * [Configure Networking]
+    * [Join Workers]
+    * [Gateway API]
+* [Cluster Install on AWS]
+    * [Prepare Cloud Machines for Cluster Install]
+    * [Install Kubernetes Packages]
+    * [Build A kubeadm Init Config]
+    * [kubeadm Cluster Install on AWS]
+    * [Install AWS Load Balancer Controller]
+    * [Join Worker Nodes]
+    * [Install cert-manager]
+    * [Deploy an AWS Load Balanced Service]
+    * [AWS VPC CNI Preface]
+* [Post Installation]
+    * [Cluster Backups]
+    * [Add Metrics Server]
+* [Guides]
+    * [Generate an API Token]
+    * [Guides: Configuring Pod Containers]
+    * [Guides: Add A User]
+    * [Configure Kube-Router for Networking]
+    * [Guides: Cluster Maintenance]
+    * [Networking]
+    * [Security]
+    * [Rejoin Node]
+* [Exercises]
+    * [Exercises: Add A User]
+    * [Exercises: Make A Deployment]
+    * [Pod Termination]
+* [CKA Exam Prep]
+    * [Storage]
+    * [Workloads and Scheduling]
+    * [Servicing and Networking]
+    * [Troubleshooting]
+    * [Cluster Architecture, Installation and Configuration]
+* [Explanations]
+    * [Container Runtime Interface]
+    * [Role Based Access Control]
+    * [Pod Scheduling]
+    * [Connectivity Between Pods]
+    * [Connecting Applications with Services]
+    * [Job with Pod-to-Pod Communication]
+    * [Volumes]
+    * [Define and enforce Network Policies]
+    * [Use ClusterIP, NodePort, LoadBalancer Service Types and Endpoints]
+    * [Logging and Monitoring]
+    * [Kubernetes Components Certificates]
+    * [Directories]
+* [Reference]
+    * [Pod]
+    * [Static Pod]
+    * [Deployment]
+    * [Daemon Sets]
+    * [StatefulSets]
+    * [Storage Class]
+    * [Persistent Volume]
+    * [Persistent Volume Claim]
+    * [ConfigMap]
+    * [Secrets]
+    * [Network Policies]
+    * [Service]
+    * [Endpoint Slice]
+    * [Labels & Selectors]
+    * [Taints and Tolerances]
+    * [Ingress]
+    * [Admission Controllers]
+    * [Pod Security Admission]
+    * [Troubleshoot]
+    * [Useful Commands]
+    * [Resources]
 
 ---
 
-[Certified Kubernetes Administrator (CKA) Course]: https://github.com/kodekloudhub/certified-kubernetes-administrator-course?tab=readme-ov-file
-[Kubernetes The Hard Way by Kelsey Hightower]: https://github.com/kelseyhightower/kubernetes-the-hard-way
-[Kubernetes The Hard Way]: https://github.com/b01/kubernetes-the-hard-way
-[Useful Commands]: /kubernetes/012.20-useful-commands.md
-[CKA Exam Guide v1.32]: /kubernetes/010.0-exam-prep.md
-[kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md
 [Preface]: /kubernetes/000.0-preface.md
+[Control Plane]: /kubernetes/001.0-control-plane.md
+[kubelet]: /kubernetes/001.1-kubelet.md
+[etcd]: /kubernetes/001.2-etcd.md
+[kube-controller-manager]: /kubernetes/001.4-kube-controller-manager.md
+[kube-proxy]: /kubernetes/001.6-kube-proxy.md
+[Local Virtual Environment]: /kubernetes/003.0-local-virtual-environment.md
+[Setup A Virtual Environment]: /kubernetes/003.1-setup-a-virtual-environment.md
+[Install containerd]: /kubernetes/003.3-install-containerd.md
+[Install Kubernetes Packages]: /kubernetes/003.4-install-kubernetes-packages.md
+[Manual Cluster Install]: /kubernetes/004.0-manual-cluster-install.md
+[Generate Control Plane Certificates Manually]: /kubernetes/004.1-generate-control-plane-certificates-manually.md
+[Generate Static Pod Manifests]: /kubernetes/004.3-generate-static-pod-manifests.md
+[Initialize the Control Plane]: /kubernetes/004.4-initialize-the-control-plane.md
+[TLS bootstrapping]: /kubernetes/004.5-tls-bootstrapping.md
+[Configure Networking]: /kubernetes/004.6-configure-networking.md
+[Add Workers]: /kubernetes/004.7-add-workers.md
+[kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md
+[Configure Networking]: /kubernetes/005.1-configure-networking.md
+[Join Workers]: /kubernetes/005.2-join-workers.md
+[Gateway API]: /kubernetes/005.3-install-gateway-api-crds.md
+[Cluster Install on AWS]: /kubernetes/006.0-cluster-install-on-aws.md
+[Prepare Cloud Machines for Cluster Install]: /kubernetes/006.1-prepare-cloud-machines-for-cluster-install.md
+[Install Kubernetes Packages]: /kubernetes/006.2-install-kubernetes-packages.md
+[Build A kubeadm Init Config]: /kubernetes/006.3-build-kubeadm-init-config.md
+[kubeadm Cluster Install on AWS]: /kubernetes/006.4-kubeadm-cluster-install-aws.md
+[Install AWS Load Balancer Controller]: /kubernetes/006.5-install-aws-load-balancer-controller.md
+[Join Worker Nodes]: /kubernetes/006.6-join-worker-nodes.md
+[Install cert-manager]: /kubernetes/006.7-install-cert-manager.md
+[Deploy an AWS Load Balanced Service]: /kubernetes/006.8-deploy-aws-load-balanced-service.md
+[AWS VPC CNI Preface]: /kubernetes/006.9-aws-vpc-cni-preface.md
+[Post Installation]: /kubernetes/007.0-post-installation.md
+[Cluster Backups]: /kubernetes/007.1-cluster-backups.md
+[Add Metrics Server]: /kubernetes/007.2-add-metrics-server.md
+[Guides]: /kubernetes/008.0-guides.md
+[Generate an API Token]: /kubernetes/008.1-generate-an-api-token.md
+[Guides: Configuring Pod Containers]: /kubernetes/008.2-configuring-pod-containers.md
+[Guides: Add A User]: /kubernetes/008.4-add-a-user.md
+[Configure Kube-Router for Networking]: /kubernetes/008.5-configure-kube-router-for-networking.md
+[Guides: Cluster Maintenance]: /kubernetes/008.6-cluster-maintenance.md
+[Networking]: /kubernetes/008.7-networking.md
+[Security]: /kubernetes/008.8-security.md
+[Rejoin Node]: /kubernetes/008.9-rejoin-a-node.md
+[Exercises]: /kubernetes/009.0-exercises.md
+[Exercises: Add A User]: /kubernetes/009.1-add-a-user.md
+[Exercises: Make A Deployment]: /kubernetes/009.2-make-a-deployment.md
+[Pod Termination]: /kubernetes/009.3-pod-termination.md
+[CKA Exam Prep]: /kubernetes/010.0-cka-exam-prep.md
+[Storage]: /kubernetes/010.1-storage.md
+[Workloads and Scheduling]: /kubernetes/010.2-workloads-and-scheduling.md
+[Servicing and Networking]: /kubernetes/010.3-servicing-and-networking.md
+[Troubleshooting]: /kubernetes/010.4-troubleshooting.md
+[Cluster Architecture, Installation and Configuration]: /kubernetes/010.5-cluster-architecture-installation-and-configuration.md
+[Explanations]: /kubernetes/011.0-explanations.md
+[Container Runtime Interface]: /kubernetes/011.1-cri.md
+[Role Based Access Control]: /kubernetes/011.2-role-based-access-control.md
+[Pod Scheduling]: /kubernetes/011.3-pod-scheduling.md
+[Connectivity Between Pods]: /kubernetes/011.4-connectivity-between-pods.md
+[Connecting Applications with Services]: /kubernetes/011.5-connecting-applications-with-services.md
+[Job with Pod-to-Pod Communication]: /kubernetes/011.6-job-with-pod-to-pod-communication.md
+[Volumes]: /kubernetes/011.7-volumes.md
+[Define and enforce Network Policies]: /kubernetes/011.8-define-and-enforce-network-policies.md
+[Use ClusterIP, NodePort, LoadBalancer Service Types and Endpoints]: /kubernetes/011.9-use-clusterip-nodeport-loadbalancer-service-types-and-endpoints.md
+[Logging and Monitoring]: /kubernetes/011.10-logging-and-monitoring.md
+[Kubernetes Components Certificates]: /kubernetes/011.11-kubernetes-components-certificates.md
+[Directories]: /kubernetes/011.12-directories.md
+[Reference]: /kubernetes/012.0-reference.md
+[Pod]: /kubernetes/012.1-pod.md
+[Static Pod]: /kubernetes/012.2-static-pod.md
+[Deployment]: /kubernetes/012.3-deployment.md
+[Daemon Sets]: /kubernetes/012.4-daemonset.md
+[StatefulSets]: /kubernetes/012.5-statefulsets.md
+[Storage Class]: /kubernetes/012.6-storage-class.md
+[Persistent Volume]: /kubernetes/012.7-persistent-volume.md
+[Persistent Volume Claim]: /kubernetes/012.8-persistent-volume-claim.md
+[ConfigMap]: /kubernetes/012.9-config-map.md
+[Secrets]: /kubernetes/012.10-secrets.md
+[Network Policies]: /kubernetes/012.11-network-policies.md
+[Service]: /kubernetes/012.12-service.md
+[Endpoint Slice]: /kubernetes/012.13-endpoint-slice.md
+[Labels & Selectors]: /kubernetes/012.14-labels-and-selectors.md
+[Taints and Tolerances]: /kubernetes/012.15-taints-and-tolerances.md
+[Ingress]: /kubernetes/012.16-ingress.md
+[Admission Controllers]: /kubernetes/012.17-admission-controllers.md
+[Pod Security Admission]: /kubernetes/012.18-pod-security-admission.md
+[Troubleshoot]: /kubernetes/012.19-troubleshoot.md
+[Useful Commands]: /kubernetes/012.20-useful-commands.md
+[Resources]: /kubernetes/012.21-resources.md
