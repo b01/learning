@@ -6,17 +6,17 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: c13-2x3-api-c848b775d
+  name: c13-2x3-api
   namespace: project-c13
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/name: c848b775d
+      app.kubernetes.io/name: api
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: c848b775d
+        app.kubernetes.io/name: api
     spec:
       containers:
         - name: nginx
@@ -31,17 +31,17 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: c13-2x3-web-6989fb8dc6
+  name: c13-2x3-web
   namespace: project-c13
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app.kubernetes.io/name: 6989fb8dc6
+      app.kubernetes.io/name: web
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: 6989fb8dc6
+        app.kubernetes.io/name: web
     spec:
       containers:
         - name: nginx
@@ -56,17 +56,17 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: c13-3cc-data-96d47bf85
+  name: c13-3cc-data
   namespace: project-c13
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/name: 96d47bf85
+      app.kubernetes.io/name: data
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: 96d47bf85
+        app.kubernetes.io/name: data
     spec:
       containers:
         - name: nginx
@@ -81,17 +81,17 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: c13-3cc-web-767b98dd48
+  name: c13-3cc-web
   namespace: project-c13
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app.kubernetes.io/name: 767b98dd48
+      app.kubernetes.io/name: web
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: 767b98dd48
+        app.kubernetes.io/name: web
     spec:
       containers:
         - name: nginx
@@ -106,17 +106,17 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: c13-3cc-runner-heavy-8687d66dbb
+  name: c13-3cc-runner-heavy
   namespace: project-c13
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/name: 8687d66dbb
+      app.kubernetes.io/name: heavy
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: 8687d66dbb
+        app.kubernetes.io/name: heavy
     spec:
       containers:
         - name: nginx
