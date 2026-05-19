@@ -46,6 +46,21 @@ those that would probably be terminated first if the nodes run out of resources
 (cpu or memory).
 
 Write the Pod names into `/opt/course/4/pods-terminated-first.txt`
+1. Review the deployment of each and manually inspect for the once that do not specify CPU and Memory
+   reservations or limits.
+2. Use some command like:
+   ```shell
+   kubectl -n project-c13 get pod \
+       -o jsonpath="{range .items[*]}{.metadata.name}{.spec.containers[*].resources}{'\n'}"
+   ```
+   ```shell
+   kubectl -n project-c13 get pod \
+       -o jsonpath="{range .items[*]}{.metadata.name}{.spec.containers[*].resources}{'\n'}"
+   ```
+   ```shell
+   kubectl -n project-c13 get pod \
+       -o jsonpath="{range .items[*]} {.metadata.name}{.status.qosClass}{'\n'}"
+   ```
 
 # Q5
 
@@ -70,9 +85,9 @@ Review:
 
 * [Create a PersistentVolume]
 
-Create a new PersistentVolume named safari-pv. It should have a capacity of 2Gi,
-accessMode ReadWriteOnce, hostPath /Volumes/Data and no storageClassName
-defined.
+Create a new PersistentVolume named safari-pv. It should have a capacity of
+`2Gi`, accessMode `ReadWriteOnce`, hostPath `/Volumes/Data` and no
+storageClassName defined.
 
 Next create a new PersistentVolumeClaim in Namespace `project-t230` named
 `safari-pvc` . It should request **2Gi** storage, accessMode **ReadWriteOnce**
