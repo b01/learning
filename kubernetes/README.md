@@ -196,5 +196,5 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [Admission Controllers]: /kubernetes/012.17-admission-controllers.md
 [Pod Security Admission]: /kubernetes/012.18-pod-security-admission.md
 [Troubleshoot]: /kubernetes/012.19-troubleshoot.md
-[Useful Commands]: /kubernetes/012.20-useful-commands.md
-[Resources]: /kubernetes/012.21-resources.md
+[Useful Commands]: /kubernetes/013.2-useful-commands.md
+[Resources]: /kubernetes/013.0-resources.md
