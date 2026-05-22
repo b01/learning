@@ -94,6 +94,9 @@ subjects:
 - kind: ServiceAccount
   name: metrics-server
   namespace: kube-system
+- kind: User
+  name: metrics-server
+  namespace: kube-system
 ---
 apiVersion: v1
 kind: Service
@@ -137,8 +140,6 @@ spec:
         restartPolicy: Always
         command: [ 'sh', '-c', 'sleep 1d' ]
         volumeMounts:
-          - mountPath: /tmp
-            name: tmp-dir
           - mountPath: /var/lib/kubelet/pki/kubelet.crt
             name: kubelet-crt
             readOnly: true
@@ -154,6 +155,9 @@ spec:
           - mountPath: /etc/kubernetes/pki/front-proxy-client-metrics-server.key
             name: front-proxy-client-metrics-server-key
             readOnly: true
+          - mountPath: /tmp/certs
+            name: certificates
+            readOnly: true
       containers:
       - args:
         - --secure-port=10250
@@ -165,6 +169,8 @@ spec:
         - --tls-cert-file=/etc/kubernetes/pki/front-proxy-client-metrics-server.crt
         - --tls-private-key-file=/etc/kubernetes/pki/front-proxy-client-metrics-server.key
         - --kubelet-certificate-authority=/etc/kubernetes/pki/ca.crt
+        - --kubelet-client-certificate=/tmp/certs/metrics-server-kubelet.crt
+        - --kubelet-client-key=/tmp/certs/metrics-server-kubelet.key
         - --requestheader-allowed-names=""
         image: registry.k8s.io/metrics-server/metrics-server:v0.8.1
         imagePullPolicy: IfNotPresent
@@ -203,8 +209,6 @@ spec:
           seccompProfile:
             type: RuntimeDefault
         volumeMounts:
-        - mountPath: /tmp
-          name: tmp-dir
         - mountPath: /var/lib/kubelet/pki/kubelet.crt
           name: kubelet-crt
           readOnly: true
@@ -220,13 +224,14 @@ spec:
         - mountPath: /etc/kubernetes/pki/front-proxy-client-metrics-server.key
           name: front-proxy-client-metrics-server-key
           readOnly: true
+        - mountPath: /tmp/certs
+          name: certificates
+          readOnly: true
       nodeSelector:
         kubernetes.io/os: linux
       priorityClassName: system-cluster-critical
       serviceAccountName: metrics-server
       volumes:
-      - emptyDir: {}
-        name: tmp-dir
       - hostPath:
           path: /var/lib/kubelet/pki/kubelet.crt
           type: File
@@ -247,6 +252,11 @@ spec:
           path: /etc/kubernetes/pki/front-proxy-client-metrics-server.key
           type: File
         name: front-proxy-client-metrics-server-key
+      - name: certificates
+        hostPath:
+          path: /tmp/certs
+          type: Directory
+
 ---
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
