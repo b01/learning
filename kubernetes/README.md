@@ -128,7 +128,7 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [Configure Networking]: /kubernetes/004.6-configure-networking.md
 [Add Workers]: /kubernetes/004.7-add-workers.md
 [kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md
-[Configure Networking]: /kubernetes/005.1-configure-networking.md
+[Configure Networking]: /kubernetes/007.1-configure-networking.md
 [Join Workers]: /kubernetes/005.2-join-workers.md
 [Gateway API]: /kubernetes/005.3-install-gateway-api-crds.md
 [Cluster Install on AWS]: /kubernetes/006.0-cluster-install-on-aws.md
@@ -141,9 +141,9 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [Install cert-manager]: /kubernetes/006.7-install-cert-manager.md
 [Deploy an AWS Load Balanced Service]: /kubernetes/006.8-deploy-aws-load-balanced-service.md
 [AWS VPC CNI Preface]: /kubernetes/006.9-aws-vpc-cni-preface.md
-[Post Installation]: /kubernetes/007.0-post-installation.md
-[Cluster Backups]: /kubernetes/007.1-cluster-backups.md
-[Add Metrics Server]: /kubernetes/007.2-add-metrics-server.md
+[Post Installation]: /kubernetes/007.0-cluster-administration.md
+[Cluster Backups]: /kubernetes/007.2-cluster-backups.md
+[Add Metrics Server]: /kubernetes/007.4-add-metrics-server.md
 [Guides]: /kubernetes/008.0-guides.md
 [Generate an API Token]: /kubernetes/008.1-generate-an-api-token.md
 [Guides: Configuring Pod Containers]: /kubernetes/008.2-configuring-pod-containers.md
