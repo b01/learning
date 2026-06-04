@@ -130,7 +130,7 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md
 [Configure Networking]: /kubernetes/007.1-configure-networking.md
 [Join Workers]: /kubernetes/005.2-join-workers.md
-[Gateway API]: /kubernetes/005.3-install-gateway-api-crds.md
+[Gateway API]: /kubernetes/005.3-install-gateway-api.md
 [Cluster Install on AWS]: /kubernetes/006.0-cluster-install-on-aws.md
 [Prepare Cloud Machines for Cluster Install]: /kubernetes/006.1-prepare-cloud-machines-for-cluster-install.md
 [Install Kubernetes Packages]: /kubernetes/006.2-install-kubernetes-packages.md
