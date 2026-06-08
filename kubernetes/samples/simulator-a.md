@@ -25,15 +25,7 @@ create the Tenant CRD:
 NOTE: It is not required for MinIO to run properly. Installing the Helm Chart
 and the Tenant resource as requested is enough
 
-## Q3
 
-There are two Pods named o3db-* in Namespace project-h800. The Project H800
-management asked you to scale these down to one replica to save resources.
-
-try:
-```shell
-kubectl scale statefulset -n project-h800 o3db --replicas=1
-```
 
 ## Q4
 
@@ -119,16 +111,6 @@ Add the node to the cluster using kubeadm
 
 ℹ️ You can connect to the worker node using ssh cka3962-node1 from cka3962
 
-
-## Q9
-
-There is ServiceAccount secret-reader in Namespace project-swan. Create a Pod of image nginx:1-alpine named api-contact which uses this ServiceAccount.
-
-Exec into the Pod and use curl to manually query all Secrets from the Kubernetes Api.
-
-Write the result into file /opt/course/9/result.json.
-
-
 ## Q10
 
 Create a new ServiceAccount processor in Namespace project-hamster. Create a Role and RoleBinding, both named processor as well. These should allow the new SA to only create Secrets and ConfigMaps in that Namespace.
@@ -183,7 +165,8 @@ Solve this question on: ssh cka7968
 There was a security incident where an intruder was able to access the whole
 cluster from a single hacked backend Pod.
 
-To prevent this create a NetworkPolicy called np-backend in Namespace project-snake. It should allow the backend-* Pods only to:
+To prevent this create a NetworkPolicy called np-backend in Namespace
+`project-snake`. It should allow the backend-* Pods only to:
 
 * Connect to db1-* Pods on port 1111
 * Connect to db2-* Pods on port 2222
