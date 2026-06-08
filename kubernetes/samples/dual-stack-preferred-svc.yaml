@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: default-nginx-page
+  labels:
+    app: nginx
+spec:
+  type: NodePort
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies: # Prefer IPv6, and fallback to IPv4 when necessary.
+  - IPv6
+  - IPv4
+  selector:
+    app: nginx
+    pod-template-hash: 54c98b4f84
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
