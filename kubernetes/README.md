@@ -123,8 +123,8 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [Generate Control Plane Certificates Manually]: /kubernetes/004.1-generate-control-plane-certificates-manually.md
 [Generate Control Plane kubeconfigs Manually]: /kubernetes/004.2-generate-control-plane-kubeconfigs-manually.md
 [Generate Static Pod Manifests]: /kubernetes/004.3-generate-static-pod-manifests.md
-[Initialize the Control Plane]: /kubernetes/004.4-initialize-the-control-plane.md
-[TLS bootstrapping]: /kubernetes/004.5-tls-bootstrapping.md
+[Initialize the Control Plane]: /kubernetes/004.5-initialize-the-control-plane.md
+[TLS bootstrapping]: /kubernetes/004.4-tls-bootstrapping.md
 [Configure Networking]: /kubernetes/004.6-configure-networking.md
 [Add Workers]: /kubernetes/004.7-add-workers.md
 [kubeadm Cluster Install]: /kubernetes/005.0-kubeadm-cluster-install.md

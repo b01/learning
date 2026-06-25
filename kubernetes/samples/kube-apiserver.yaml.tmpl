@@ -21,7 +21,7 @@ spec:
     - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
     - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
     - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
-    - --etcd-servers=https://127.0.0.1:2379
+    - --etcd-servers=https://[::1]:2379
     - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
     - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
     - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
@@ -39,6 +39,7 @@ spec:
     - --service-cluster-ip-range=${SERVICE_CIDRS}
     - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
     - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+    - --enable-aggregator-routing=true
     image: registry.k8s.io/kube-apiserver:${KUBE_VER}
     imagePullPolicy: IfNotPresent
     livenessProbe:

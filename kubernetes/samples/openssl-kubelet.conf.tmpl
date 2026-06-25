@@ -12,17 +12,3 @@ basicConstraints     = CA:FALSE
 extendedKeyUsage     = clientAuth, serverAuth
 keyUsage             = critical, digitalSignature, keyEncipherment
 subjectAltName       = DNS:${NODE_NAME}, IP:127.0.0.1, IP:${NODE_IPV4}, IP:${NODE_IPV6}
-
-[ metrics_server ]
-distinguished_name = metrics_server_dn
-prompt             = no
-req_extensions     = metrics_server_ext
-
-[ metrics_server_dn ]
-CN = metrics-server
-
-[ metrics_server_ext ]
-basicConstraints     = CA:FALSE
-extendedKeyUsage     = clientAuth
-keyUsage             = critical, digitalSignature, keyEncipherment
-subjectAltName       = DNS:${NODE_NAME}, IP:127.0.0.1, IP:${NODE_IPV4}, IP:${NODE_IPV6}

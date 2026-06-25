@@ -17,8 +17,8 @@ authorization:
     cacheUnauthorizedTTL: 0s
 cgroupDriver: systemd
 clusterDNS: # the DNS server IP is unknown when the kubelet first spins up.
+- fd12:3456:789a:2000::cffd
 - 10.96.0.10
-- 2001:db8:42:1::1
 clusterDomain: cluster.local
 containerRuntimeEndpoint: "unix:///var/run/containerd/containerd.sock"
 cpuManagerReconcilePeriod: 0s
@@ -50,7 +50,7 @@ staticPodPath: /etc/kubernetes/manifests
 streamingConnectionIdleTimeout: 0s
 syncFrequency: 0s
 volumeStatsAggPeriod: 0s
-serverTLSBootstrap: false
-rotateCertificates: false
+serverTLSBootstrap: true
+rotateCertificates: true
 tlsPrivateKeyFile: /var/lib/kubelet/pki/kubelet.key
 tlsCertFile: /var/lib/kubelet/pki/kubelet.crt

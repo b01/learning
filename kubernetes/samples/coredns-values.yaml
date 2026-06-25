@@ -2,8 +2,8 @@ service:
   clusterIP: 10.96.0.10
   clusterIPs:
     - 10.96.0.10
-    - 2001:db8:42:1::1
+    - fd12:3456:789a:2000::cffd
   ipFamilyPolicy: PreferDualStack
   ipFamilies:
-    - IPv4
     - IPv6
+    - IPv4
