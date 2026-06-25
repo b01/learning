@@ -2,6 +2,17 @@
 
 All about streaming on Twitch.tv.
 
+## Adding Tags To Your Stream
+
+Tags set the context of your stream and let others discover you more easily.
+Up to 10 custom tags can be added when Editing Stream Info.
+
+* Are not case-sensitive.
+* Do not automatically translate to other languages.
+* Cannot have spaces.
+
+For more details see [Adding Tags To Your Stream].
+
 ## Bits
 
 "Bits are a virtual good you can buy on Twitch that give you the power to
@@ -18,3 +29,7 @@ stays visible in chat."
 the more the better the `Cheermote` can be. You can even "pin" your message
 to the point where it stays visible. Sound like this can be abused by the wrong
 viewer.
+
+---
+
+[Adding Tags To Your Stream]: https://help.twitch.tv/s/article/guide-to-tags
