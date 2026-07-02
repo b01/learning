@@ -17,14 +17,15 @@ spec:
     - --authorization-mode=Node,RBAC
     - --client-ca-file=/etc/kubernetes/pki/ca.crt
     - --enable-admission-plugins=NodeRestriction
+    - --token-auth-file=/etc/kubernetes/bootstrap-token
     - --enable-bootstrap-token-auth=true
     - --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
     - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
     - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
-    - --etcd-servers=https://[::1]:2379
+    - --etcd-servers=https://${ADVERTISE_ADDRESS_URL}:2379
     - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
     - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
-    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+    - --kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP
     - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
     - --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key
     - --requestheader-allowed-names=front-proxy-client
@@ -40,12 +41,12 @@ spec:
     - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
     - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
     - --enable-aggregator-routing=true
-    image: registry.k8s.io/kube-apiserver:${KUBE_VER}
+    image: registry.k8s.io/kube-apiserver:${KUBE_IMG_VER}
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8
       httpGet:
-        host: ${ADVERTISE_ADDRESS}
+        host: ::1
         path: /livez
         port: 6443
         scheme: HTTPS
@@ -56,7 +57,7 @@ spec:
     readinessProbe:
       failureThreshold: 3
       httpGet:
-        host: ${ADVERTISE_ADDRESS}
+        host: ::1
         path: /readyz
         port: 6443
         scheme: HTTPS
@@ -68,7 +69,7 @@ spec:
     startupProbe:
       failureThreshold: 24
       httpGet:
-        host: ${ADVERTISE_ADDRESS}
+        host: ::1
         path: /livez
         port: 6443
         scheme: HTTPS
@@ -90,6 +91,9 @@ spec:
       readOnly: true
     - mountPath: /usr/share/ca-certificates
       name: usr-share-ca-certificates
+      readOnly: true
+    - mountPath: /etc/kubernetes/bootstrap-token
+      name: bootstrap-token
       readOnly: true
   hostNetwork: true
   priority: 2000001000
@@ -118,3 +122,7 @@ spec:
       path: /usr/share/ca-certificates
       type: DirectoryOrCreate
     name: usr-share-ca-certificates
+  - hostPath:
+      path: /etc/kubernetes/bootstrap-token
+      type: File
+    name: bootstrap-token

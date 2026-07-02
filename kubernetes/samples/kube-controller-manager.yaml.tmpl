@@ -8,12 +8,12 @@ metadata:
   namespace: kube-system
 spec:
   containers:
+  # --bind-address was removed to bind to all addresses and interfaces, see https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
   - command:
     - kube-controller-manager
     - --allocate-node-cidrs=true
     - --authentication-kubeconfig=/etc/kubernetes/controller-manager.conf
     - --authorization-kubeconfig=/etc/kubernetes/controller-manager.conf
-    - --bind-address=127.0.0.1
     - --client-ca-file=/etc/kubernetes/pki/ca.crt
     - --cluster-cidr=${POD_CIDRS}
     - --cluster-name=kubernetes
@@ -27,7 +27,7 @@ spec:
     - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
     - --service-cluster-ip-range=${SERVICE_CIDRS}
     - --use-service-account-credentials=true
-    image: registry.k8s.io/kube-controller-manager:${KUBE_VER}
+    image: registry.k8s.io/kube-controller-manager:${KUBE_IMG_VER}
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8
