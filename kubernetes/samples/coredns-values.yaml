@@ -1,8 +1,9 @@
 service:
-  clusterIP: 10.96.0.10
+  name: kube-dns
+  clusterIP: fd12:3456:789a:2000::10
   clusterIPs:
+    - fd12:3456:789a:2000::10
     - 10.96.0.10
-    - fd12:3456:789a:2000::cffd
   ipFamilyPolicy: PreferDualStack
   ipFamilies:
     - IPv6
