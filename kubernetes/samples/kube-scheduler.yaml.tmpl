@@ -12,7 +12,6 @@ spec:
     - kube-scheduler
     - --authentication-kubeconfig=/etc/kubernetes/scheduler.conf
     - --authorization-kubeconfig=/etc/kubernetes/scheduler.conf
-    - --bind-address=::1
     - --kubeconfig=/etc/kubernetes/scheduler.conf
     - --leader-elect=true
     image: registry.k8s.io/kube-scheduler:${KUBE_IMG_VER}
