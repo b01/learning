@@ -17,7 +17,7 @@ authorization:
     cacheUnauthorizedTTL: 0s
 cgroupDriver: systemd
 clusterDNS: # the DNS server IP is unknown when the kubelet first spins up.
-- fd12:3456:789a:2000::1
+- fd12:3456:789a:2000::10
 - 10.96.0.10
 clusterDomain: cluster.local
 containerRuntimeEndpoint: "unix:///var/run/containerd/containerd.sock"
