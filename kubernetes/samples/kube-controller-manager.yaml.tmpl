@@ -32,7 +32,7 @@ spec:
     livenessProbe:
       failureThreshold: 8
       httpGet:
-        host: 127.0.0.1
+        host: ::1
         path: /healthz
         port: 10257
         scheme: HTTPS
@@ -46,7 +46,7 @@ spec:
     startupProbe:
       failureThreshold: 24
       httpGet:
-        host: 127.0.0.1
+        host: ::1
         path: /healthz
         port: 10257
         scheme: HTTPS
