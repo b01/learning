@@ -1,3 +1,4 @@
+isClusterService: true
 service:
   name: kube-dns
   clusterIP: fd12:3456:789a:2000::10
@@ -8,3 +9,13 @@ service:
   ipFamilies:
     - IPv6
     - IPv4
+serviceAccount:
+  create: true
+securityContext:
+  allowPrivilegeEscalation: true
+  capabilities:
+    add:
+      - NET_BIND_SERVICE
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
