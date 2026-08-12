@@ -33,9 +33,8 @@ spec:
         - name: kube-proxy
           image: registry.k8s.io/kube-proxy:${KUBE_IMG_VER}
           command:
-            - /bin/sh
-            - -c
-            - kube-proxy --config=/var/lib/kube-proxy/config.yaml
+            - kube-proxy
+            - --config=/var/lib/kube-proxy/config.yaml
           securityContext:
             privileged: true
           volumeMounts:
