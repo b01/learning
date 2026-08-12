@@ -52,5 +52,3 @@ syncFrequency: 0s
 volumeStatsAggPeriod: 0s
 serverTLSBootstrap: true
 rotateCertificates: true
-#tlsPrivateKeyFile: /var/lib/kubelet/pki/kubelet.key
-#tlsCertFile: /var/lib/kubelet/pki/kubelet.crt
