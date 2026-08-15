@@ -10,16 +10,16 @@ spec:
   containers:
   - command:
     - kube-scheduler
+    - "--bind-address=::"
     - --authentication-kubeconfig=/etc/kubernetes/scheduler.conf
     - --authorization-kubeconfig=/etc/kubernetes/scheduler.conf
     - --kubeconfig=/etc/kubernetes/scheduler.conf
     - --leader-elect=true
-    image: registry.k8s.io/kube-scheduler:${KUBE_IMG_VER}
+    image: "registry.k8s.io/kube-scheduler:${KUBE_IMG_VER}"
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8
       httpGet:
-        host: ::1
         path: /livez
         port: 10259
         scheme: HTTPS
@@ -30,19 +30,18 @@ spec:
     readinessProbe:
       failureThreshold: 3
       httpGet:
-        host: ::1
         path: /readyz
         port: 10259
         scheme: HTTPS
-      periodSeconds: 1
+      periodSeconds: 3
       timeoutSeconds: 15
+      initialDelaySeconds: 5
     resources:
       requests:
         cpu: 100m
     startupProbe:
       failureThreshold: 24
       httpGet:
-        host: ::1
         path: /livez
         port: 10259
         scheme: HTTPS

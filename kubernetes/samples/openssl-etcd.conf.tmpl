@@ -74,7 +74,7 @@ req_extensions     = server_client_ext
 [ server_dn ]
 CN = control-plane-01
 
-# A client certificate for the apiserver-etcd-client.crt.txt server to connect to the kubelets securely.
+# A client certificate for the kube-apiserver to connect to etcd server securely.
 
 [ apiserver-etcd-client ]
 distinguished_name = apiserver-etcd-client_dn

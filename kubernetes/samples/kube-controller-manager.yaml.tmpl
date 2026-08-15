@@ -8,31 +8,30 @@ metadata:
   namespace: kube-system
 spec:
   containers:
-  # --bind-address was removed to bind to all addresses and interfaces, see https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
   - command:
     - kube-controller-manager
-    - --allocate-node-cidrs=true
+    - "--bind-address=::"
+    - "--allocate-node-cidrs=true"
     - --authentication-kubeconfig=/etc/kubernetes/controller-manager.conf
     - --authorization-kubeconfig=/etc/kubernetes/controller-manager.conf
     - --client-ca-file=/etc/kubernetes/pki/ca.crt
-    - --cluster-cidr=${POD_CIDRS}
+    - "--cluster-cidr=${POD_CIDRS}"
     - --cluster-name=kubernetes
     - --cluster-signing-cert-file=/etc/kubernetes/pki/ca.crt
     - --cluster-signing-key-file=/etc/kubernetes/pki/ca.key
-    - --controllers=*,bootstrapsigner,tokencleaner
+    - --controllers=*
     - --kubeconfig=/etc/kubernetes/controller-manager.conf
-    - --leader-elect=true
+    - "--leader-elect=true"
     - --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
     - --root-ca-file=/etc/kubernetes/pki/ca.crt
     - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
-    - --service-cluster-ip-range=${SERVICE_CIDRS}
-    - --use-service-account-credentials=true
-    image: registry.k8s.io/kube-controller-manager:${KUBE_IMG_VER}
+    - "--service-cluster-ip-range=${SERVICE_CIDRS}"
+    - "--use-service-account-credentials=true"
+    image: "registry.k8s.io/kube-controller-manager:${KUBE_IMG_VER}"
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8
       httpGet:
-        host: ::1
         path: /healthz
         port: 10257
         scheme: HTTPS
@@ -46,7 +45,6 @@ spec:
     startupProbe:
       failureThreshold: 24
       httpGet:
-        host: ::1
         path: /healthz
         port: 10257
         scheme: HTTPS
@@ -109,3 +107,8 @@ spec:
       path: /usr/share/ca-certificates
       type: DirectoryOrCreate
     name: usr-share-ca-certificates
+
+#  "Controller is disabled by a feature gate" controller="podcertificaterequest-cleaner-controller" requiredFeatureGates=["PodCertificateRequest"]
+#I0813 15:17:35.922930       1 controllermanager.go:579] "Warning: skipping controller" controller="podcertificaterequest-cleaner-controller"
+#  Controller is disabled by a feature gate" controller="kube-apiserver-serving-clustertrustbundle-publisher-controller" requiredFeatureGates=["ClusterTrustBundle"]
+#I0813 15:17:36.273009       1 controllermanager.go:579] "Warning: skipping controller" controller="kube-apiserver-serving-clustertrustbundle-publisher-controller"
