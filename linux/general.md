@@ -83,7 +83,11 @@ do
 done <optional>
 ```
 
-## Reading input
+## Send Output to File and Stdout
+
+```shell
+echo "Salam" | tee -a /var/log/worker.log
+```
 
 ---
 

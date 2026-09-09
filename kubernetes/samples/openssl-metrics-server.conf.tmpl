@@ -1,0 +1,31 @@
+# --- Kubelet Client ---
+
+[ metrics_server ]
+distinguished_name = metrics_server_dn
+prompt             = no
+req_extensions     = metrics_server_ext
+
+[ metrics_server_dn ]
+CN = metrics-server
+
+[ metrics_server_ext ]
+basicConstraints     = CA:FALSE
+extendedKeyUsage     = clientAuth
+keyUsage             = critical, digitalSignature, keyEncipherment
+subjectAltName       = ${ALL_KUBELET_SANS}
+
+# --- Front Poxy Client ---
+
+[ front_proxy_client ]
+distinguished_name = front_proxy_client_dn
+prompt             = no
+req_extensions     = front_proxy_client_ext
+
+[ front_proxy_client_dn ]
+CN = metrics-server
+O  = system:aggregated-metrics-reader
+
+[ front_proxy_client_ext ]
+basicConstraints = CA:FALSE
+extendedKeyUsage = clientAuth
+keyUsage         = critical, digitalSignature, keyEncipherment

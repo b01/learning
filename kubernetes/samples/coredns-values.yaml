@@ -1,9 +1,21 @@
+isClusterService: true
 service:
-  clusterIP: 10.96.0.10
+  name: kube-dns
+  clusterIP: fd12:3456:789a:2000::10
   clusterIPs:
+    - fd12:3456:789a:2000::10
     - 10.96.0.10
-    - 2001:db8:42:1::1
   ipFamilyPolicy: PreferDualStack
   ipFamilies:
-    - IPv4
     - IPv6
+    - IPv4
+serviceAccount:
+  create: true
+securityContext:
+  allowPrivilegeEscalation: true
+  capabilities:
+    add:
+      - NET_BIND_SERVICE
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
