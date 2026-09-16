@@ -1,89 +1,39 @@
 # -*- mode: ruby -*-
 # vi:set ft=ruby sw=2 ts=2 sts=2:
 
-# Setting the environment variable ADD_JUMP_BOX="YES" adds a jump-box.
-# The default is "NO"
-ADD_JUMP_BOX = ENV['ADD_JUMP_BOX'] ? ENV['ADD_JUMP_BOX'] : "NO"
-
 BOX_IMG = "b01/ubuntu-server"
 BOX_VER = "26.04"
-
 # Time to wait for the VMs to boot up before timing out.
-BOOT_TIMEOUT_SEC = 300
+BOX_TIMEOUT = 300
 
-# Network IPv4 and IPv6 prefixes for the hostOnly adapters on the machines.
-IPV4_PREFIX = "192.168.56."
-IPV6_PREFIX = "2000:192:168:56::"
-K8_NETWORK = "k8_int_net"
+# Unfortunately, these networks do not show up in the VirtualBox UI.
+K8S_NETWORK = "k8s_int_net"
 
-JUMPER_NAME = "jump-box"
-JUMPER_IP = 10
+# dualstack or ipv6-only
+NETWORK_MODE = ENV['NETWORK_MODE'] ? ENV['NETWORK_MODE'] : "ipv6-only"
 
-CONTROL_PLANE_PREFIX = "control-plane-0"
-# in a loop below we'll add the index to this number; which starts at 1. So the first control-plane IP will be 11.
-CONTROL_PLANE_IP_INIT = 10
-CONTROL_PLANES = ENV['CONTROL_PLANES'] ? ENV['CONTROL_PLANES'].to_i : 1
+# Define K8s nodes here.
+NODES = [
+  { cpus: 2, ram: 4096, ip6: "fd00:192:168:56::11", ip: "192.168.56.11", name: "control-plane-01" },
+  { cpus: 1, ram: 2048, ip6: "fd00:192:168:56::21", ip: "192.168.56.21", name: "worker-01" },
+  { cpus: 1, ram: 2048, ip6: "fd00:192:168:56::22", ip: "192.168.56.22", name: "worker-02" },
+]
 
-NODE_NAME_PREFIX = 'worker-0'
-NODE_IP_INIT = 20
-# Define the number of worker nodes.
-NODE_WORKERS = 2
-CONTROL_PLANE_RAM = ENV['CONTROL_PLANE_RAM'] ? ENV['CONTROL_PLANE_RAM'].to_i : 4096
-WORKER_RAM = ENV['WORKER_RAM'] ? ENV['WORKER_RAM'].to_i : 2048
+# Setup a network adapter on the guest machine using netplan.
+def configure_adapter(node, interface, ip4, ip6, mode)
+    # & 'C:\Program Files\Oracle\VirtualBox\VBoxManage.exe' list intnets
 
-# Host operating system detection
-module OS
-  def OS.windows?
-    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
-  end
+    # Copy netplan file into the guest machine.
+    node.vm.provision "file",
+        source: "./99-custom-#{mode}.yaml.tmpl",
+        destination: "/tmp/99-custom.yaml.tmpl"
 
-  def OS.mac?
-    (/darwin/ =~ RUBY_PLATFORM) != nil
-  end
-
-  def OS.unix?
-    !OS.windows?
-  end
-
-  def OS.linux?
-    OS.unix? and not OS.mac?
-  end
-
-  def OS.jruby?
-    RUBY_ENGINE == "jruby"
-  end
-end
-
-# Setup a network adapter and assign IP4 and IP6 addresses
-# (internal network, DHCP disabled).
-def add_adapter(node, network_name, interface, ip4, ip6)
-    #puts "add adapter to #{interface} network #{network_name}"
-    # Unfortunately VirtualBox has no way to assign an IP6 address here.
-    node.vm.network :private_network,
-        intnet: network_name,
-        auto_config: false
-
-    # Copy netplan file into guest
-    node.vm.provision "file", source: "99-custom.yaml.tmpl", destination: "/tmp/99-custom.yaml.tmpl"
-
-    # Run this shell provisioner to assign IP6 manually inside VM.
-    # It will also flush the adapter, removing any previously assigned IPs.
-    # It also re-assigns the same IP4 address after the flush.
+    # Add a netplan configuration for a NIC.
     node.vm.provision "shell", inline: <<-SHELL
-        #sudo ip addr flush dev #{interface}
-        #sudo ip addr add #{ip4}/24 dev #{interface}
-        #sudo ip -6 addr add #{ip6}/64 dev #{interface}
-        #sudo ip link set #{interface} up
-        #sudo ip -6 route add default via #{IPV6_PREFIX}1 dev #{interface}
-
-        # Alternative method to use netplan
         export VAGRANT_interface="#{interface}"
         export VAGRANT_ip4="#{ip4}"
         export VAGRANT_ip6="#{ip6}"
-        export VAGRANT_gateway="#{IPV4_PREFIX}1"
-        export VAGRANT_gateway6="#{IPV6_PREFIX}1"
-        envsubst < /tmp/99-custom.yaml.tmpl | tee /tmp/99-custom.yaml
-        sudo cp /tmp/99-custom.yaml /etc/netplan/99-custom.yaml
+        envsubst < /tmp/99-custom.yaml.tmpl | sudo tee /etc/netplan/99-custom.yaml
         sudo chmod 0600 /etc/netplan/99-custom.yaml
         sudo netplan apply
     SHELL
@@ -91,84 +41,64 @@ end
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
+# backwards compatibility).
 Vagrant.configure("2") do |config|
-    # The most common configuration options are documented and commented below.
-    # For a complete reference, please see the online documentation at
-    # https://docs.vagrantup.com.
+    # Configuration options are commented below.
+    # For a complete reference, please see https://docs.vagrantup.com.
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://portal.cloud.hashicorp.com/vagrant/discover
     config.vm.box = BOX_IMG
     config.vm.box_version = BOX_VER
-    config.vm.boot_timeout = BOOT_TIMEOUT_SEC
+    config.vm.boot_timeout = BOX_TIMEOUT
 
     # Disable automatic box update checking. If you disable this, then
     # boxes will only be checked for updates when the user runs
-    # `vagrant box outdated`. This is not recommended.
+    # `vagrant box outdated`.
     config.vm.box_check_update = false
 
-    # Sometimes the public key is not in the authorized_keys, so login with:
-    #config.ssh.username = 'vagrant'
-    #config.ssh.password = 'vagrant'
-
-    # Use an environment variable to dynamically turn off deploying a jump-box.
-    if ADD_JUMP_BOX == "YES"
-        # Provision a JumpBox
-        config.vm.define JUMPER_NAME do |node|
-            # Name shown in the GUI
-            node.vm.provider "virtualbox" do |vb|
-                vb.name = JUMPER_NAME
-                vb.memory = 1024
-                vb.cpus = 1
-            end
-            node.vm.hostname = JUMPER_NAME
-        end
+    # Linked clones are based on a master VM, which is generated by importing
+    # the base box only once the first time it is required. For the linked
+    # clones only differencing disk images are created where the parent disk
+    # image belongs to the master VM.
+    # see https://developer.hashicorp.com/vagrant/docs/providers/virtualbox/configuration#linked-clones
+    config.vm.provider :virtualbox do |vb|
+        vb.linked_clone = true
     end
 
-    # Provision Control-plane  Nodes
-    (1..CONTROL_PLANES).each do |i| # Note that i starts at 1 and not 0.
-        machine_name = "#{CONTROL_PLANE_PREFIX}#{i}"
+    # Provision Nodes.
+    NODES.each_with_index do |node, i|
+        config.vm.define node[:name] do |node_config|
+            node_config.vm.hostname = node[:name]
+            # Provisioner specifics.
+            node_config.vm.provider :virtualbox do |vb|
+                # Name shown in the GUI
+                vb.name = node[:name]
+                vb.memory = node[:ram]
+                vb.cpus = node[:cpus]
+                #vm_info = `VBoxManage list dhcpserver` rescue ""
 
-        config.vm.define machine_name do |node|
-            # Name shown in the GUI
-            node.vm.provider "virtualbox" do |vb|
-                vb.name = machine_name
-                vb.memory = CONTROL_PLANE_RAM
-                vb.cpus = 2
+                #unless !vm_info.include?(K8S_NETWORK)
+                #end
+
+                # Add a second nic to join an intnet network.
+                vb.customize [
+                    "modifyvm", :id,
+                    "--nic-type2", "82540EM",
+                    "--nic2", "intnet",
+                    "--intnet2", K8S_NETWORK,
+                    "--cable-connected2", "on",
+                ]
             end
 
-            node.vm.hostname = machine_name
-            # Second adapter (internal network, DHCP disabled)
-            add_adapter(node,
-                K8_NETWORK,
+            # Add a second adapter to operate over an private intnet
+            # that will serve as the k8s network.
+            configure_adapter(
+                node_config,
                 "enp0s8",
-                IPV4_PREFIX + "#{CONTROL_PLANE_IP_INIT + i}",
-                IPV6_PREFIX + "#{CONTROL_PLANE_IP_INIT + i}"
-            )
-        end
-    end
-
-    # Provision Worker Nodes
-    (1..NODE_WORKERS).each do |i| # Note that i starts at 1 and not 0.
-        machine_name = "#{NODE_NAME_PREFIX}#{i}"
-
-        config.vm.define machine_name do |node|
-            node.vm.provider "virtualbox" do |vb|
-                vb.name = machine_name
-                vb.memory = WORKER_RAM
-                vb.cpus = 1
-            end
-
-            node.vm.hostname = machine_name
-
-            # Second adapter (internal network, DHCP disabled)
-            add_adapter(node,
-                K8_NETWORK,
-                "enp0s8",
-                IPV4_PREFIX + "#{NODE_IP_INIT + i}",
-                IPV6_PREFIX + "#{NODE_IP_INIT + i}"
+                node[:ip],
+                node[:ip6],
+                NETWORK_MODE
             )
         end
     end
