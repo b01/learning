@@ -20,7 +20,6 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 * [Cluster Installation Overview]
 * [Local Virtual Environment]
   * [Setup A Virtual Environment]
-  * [Configure SSH From A JumpBox]
   * [Install containerd]
   * [Install Kubernetes Packages]
 * [Manual Cluster Install]
@@ -116,9 +115,8 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [Cluster Installation Overview]: /kubernetes/002.0-cluster-installation-overview.md
 [Local Virtual Environment]: /kubernetes/003.0-local-virtual-environment.md
 [Setup A Virtual Environment]: /kubernetes/003.1-setup-a-virtual-environment.md
-[Configure SSH From A JumpBox]: /kubernetes/003.2-configure-ssh-from-a-jump-box.md
-[Install containerd]: /kubernetes/003.3-install-containerd.md
-[Install Kubernetes Packages]: /kubernetes/003.4-install-kubernetes-packages.md
+[Install containerd]: /kubernetes/003.2-install-containerd.md
+[Install Kubernetes Packages]: /kubernetes/003.3-install-kubernetes-packages.md
 [Manual Cluster Install]: /kubernetes/004.0-manual-cluster-install.md
 [Generate Control Plane Certificates Manually]: /kubernetes/004.1-generate-control-plane-certificates-manually.md
 [Generate Control Plane kubeconfigs Manually]: /kubernetes/004.2-generate-control-plane-kubeconfigs-manually.md
@@ -132,15 +130,15 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [Join Workers]: /kubernetes/005.2-join-workers.md
 [Gateway API]: /kubernetes/005.3-install-gateway-api.md
 [Cluster Install on AWS]: /kubernetes/006.0-cluster-install-on-aws.md
-[Prepare Cloud Machines for Cluster Install]: /kubernetes/006.1-prepare-cloud-machines-for-cluster-install.md
-[Install Kubernetes Packages]: /kubernetes/006.2-install-kubernetes-packages.md
-[Build A kubeadm Init Config]: /kubernetes/006.3-build-kubeadm-init-config.md
-[kubeadm Cluster Install on AWS]: /kubernetes/006.4-kubeadm-cluster-install-aws.md
-[Install AWS Load Balancer Controller]: /kubernetes/006.5-install-aws-load-balancer-controller.md
-[Join Worker Nodes]: /kubernetes/006.6-join-worker-nodes.md
+[Prepare Cloud Machines for Cluster Install]: /kubernetes/006.1-deploy-infrastructure.md
+[Install Kubernetes Packages]: /kubernetes/006.3-install-ecr-credential-provider.md
+[Build A kubeadm Init Config]: /kubernetes/006.4-build-kubeadm-init-config.md
+[kubeadm Cluster Install on AWS]: /kubernetes/006.5-kubeadm-cluster-install-aws.md
+[Install AWS Load Balancer Controller]: /kubernetes/006.8-install-aws-load-balancer-controller.md
+[Join Worker Nodes]: /kubernetes/006.9-join-worker-nodes.md
 [Install cert-manager]: /kubernetes/006.7-install-cert-manager.md
-[Deploy an AWS Load Balanced Service]: /kubernetes/006.8-deploy-aws-load-balanced-service.md
-[AWS VPC CNI Preface]: /kubernetes/006.9-aws-vpc-cni-preface.md
+[Deploy an AWS Load Balanced Service]: /kubernetes/006.10-deploy-aws-load-balanced-service.md
+[AWS VPC CNI Preface]: /kubernetes/006.11-index-aws-vpc-cni-preface.md
 [Post Installation]: /kubernetes/007.0-cluster-administration.md
 [Cluster Backups]: /kubernetes/007.2-cluster-backups.md
 [Add Metrics Server]: /kubernetes/007.4-add-metrics-server.md
@@ -164,7 +162,7 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [Troubleshooting]: /kubernetes/010.4-troubleshooting.md
 [Cluster Architecture, Installation and Configuration]: /kubernetes/010.5-cluster-architecture-installation-and-configuration.md
 [Explanations]: /kubernetes/011.0-explanations.md
-[Container Runtime Interface]: /kubernetes/011.1-cri.md
+[Container Runtime Interface]: /kubernetes/014.01-cri.md
 [Role Based Access Control]: /kubernetes/011.2-role-based-access-control.md
 [Pod Scheduling]: /kubernetes/011.3-pod-scheduling.md
 [Connectivity Between Pods]: /kubernetes/011.4-connectivity-between-pods.md
