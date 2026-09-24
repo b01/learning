@@ -34,3 +34,7 @@ FONTSIZE="16x32"
 ip route list
 ip route get <IP>
 ```
+
+## Memory
+
+Run `free -h` in your terminal to see current stats.

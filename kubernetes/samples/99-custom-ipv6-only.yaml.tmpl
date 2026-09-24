@@ -1,0 +1,8 @@
+network:
+  version: 2
+  ethernets:
+    ${VAGRANT_interface}:
+      dhcp4: false
+      dhcp6: true
+      addresses:
+      - ${VAGRANT_ip6}/64

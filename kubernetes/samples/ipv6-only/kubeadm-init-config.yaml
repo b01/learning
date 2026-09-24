@@ -1,0 +1,88 @@
+apiVersion: kubeadm.k8s.io/v1beta4
+#bootstrapTokens:
+#- groups:
+#  - system:bootstrappers:kubeadm:default-node-token
+#  token: abcdef.0123456789abcdef
+#  ttl: 24h0m0s
+#  usages:
+#  - signing
+#  - authentication
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: "fd00:192:168:56::11"
+  bindPort: 6443
+nodeRegistration:
+#  criSocket: unix:///var/run/containerd/containerd.sock
+#  imagePullPolicy: IfNotPresent
+#  imagePullSerial: true
+  kubeletExtraArgs:
+    - name: node-ip
+      value: "fd00:192:168:56::11"
+#  taints: null
+#timeouts:
+#  controlPlaneComponentHealthCheck: 4m0s
+#  discovery: 5m0s
+#  etcdAPICall: 2m0s
+#  kubeletHealthCheck: 4m0s
+#  kubernetesAPICall: 1m0s
+#  tlsBootstrap: 5m0s
+#  upgradeManifests: 5m0s
+---
+apiServer:
+  certSANs:
+    - "::1"
+    - "0:0:0:0:0:0:0:1"
+    - "fd00:192:168:56::11"
+    - "control-plane-01"
+    - "control-plane"
+#  extraArgs:
+#    - name: bind-address
+#      value: "::"
+#    - name: advertise-address
+#      value: "fd00:192:168:56::11"
+apiVersion: kubeadm.k8s.io/v1beta4
+#caCertificateValidityPeriod: 87600h0m0s
+#certificateValidityPeriod: 8760h0m0s
+#certificatesDir: /etc/kubernetes/pki
+#clusterName: kubernetes
+#controllerManager:
+#  extraArgs:
+#  - name: bind-address
+#    value: "::1"
+#  - name: master
+#    value: "fd00:192:168:56::11"
+#  - name: advertise-address
+#    value: "fd00:192:168:56::11"
+#imageRepository: registry.k8s.io
+kind: ClusterConfiguration
+#kubernetesVersion: 1.37.0
+#networking:
+#  dnsDomain: cluster.local
+#  podSubnet: "fd12:3456:789a:1000::/56"
+#  serviceSubnet: "fd12:3456:789a:2000::/112"
+#controlPlaneEndpoint: control-plane
+#scheduler:
+#  extraArgs:
+#  - name: bind-address
+#    value: "::1"
+#dns:
+#  disabled: true
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+clusterDNS:
+  - fd12:3456:789a:2000::a
+#containerRuntimeEndpoint: "unix:///var/run/containerd/containerd.sock"
+#imageMinimumGCAge: 4h
+#runtimeRequestTimeout: 10s
+#shutdownGracePeriod: 60s
+#shutdownGracePeriodCriticalPods: 15s
+#serverTLSBootstrap: true
+#rotateCertificates: true
+#address: "::"
+#healthzBindAddress: "::1"
+#---
+#apiVersion: kubeproxy.config.k8s.io/v1alpha1
+#kind: KubeProxyConfiguration
+#bindAddress: "::"
+#metricsBindAddress: "[::1]:10249"

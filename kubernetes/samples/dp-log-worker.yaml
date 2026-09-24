@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: log
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: worker
+  name: worker
+  namespace: log
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - image: busybox
+          name: busybox
+          command:
+          - sh
+          - -c
+          - |
+            mkdir /var/log
+            shutd () {
+                printf "%s" "Shutting down the container gracefully..."
+                KEEP_RUNNING="0"
+            }
+            trap 'shutd' TERM
+            KEEP_RUNNING=1
+            while [ "${KEEP_RUNNING}" != "0" ]
+            do
+                echo "doing stuff" >> /var/log/worker.log
+                sleep 1
+            done
+            exit 0

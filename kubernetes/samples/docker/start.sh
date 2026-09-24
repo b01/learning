@@ -18,7 +18,7 @@ trap 'shutd' TERM
 echo "ready!"
 
 cd cloud-provider-aws
-git checkout -b tag-v1.34.2 v1.34.2
+git checkout -b tag-v1.35.2 v1.35.2
 
 printf "%s" "building ecr-credential-provider..."
 make ecr-credential-provider

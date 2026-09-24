@@ -1,4 +1,4 @@
-# https://github.com/kubernetes/kubernetes/blob/v1.34.3/cluster/addons/kube-proxy/kube-proxy-ds.yaml
+# https://github.com/kubernetes/kubernetes/blob/v1.35.6/cluster/addons/kube-proxy/kube-proxy-ds.yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -31,11 +31,10 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: kube-proxy
-          image: registry.k8s.io/kube-proxy:${KUBE_VER}
+          image: registry.k8s.io/kube-proxy:${KUBE_IMG_VER}
           command:
-            - /bin/sh
-            - -c
-            - kube-proxy --config=/var/lib/kube-proxy/config.yaml
+            - kube-proxy
+            - --config=/var/lib/kube-proxy/config.yaml
           securityContext:
             privileged: true
           volumeMounts:
