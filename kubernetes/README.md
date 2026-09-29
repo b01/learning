@@ -19,7 +19,7 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
   * [kube-proxy]
 * [Cluster Installation Overview]
 * [Local Virtual Environment]
-  * [Setup A Virtual Environment]
+  * [Setup Local Virtual Environment]
   * [Install containerd]
   * [Install Kubernetes Packages]
 * [Manual Cluster Install]
@@ -113,8 +113,8 @@ Begin at the [Preface] and follow the "Next" links at the bottom of each page.
 [kube-scheduler]: /kubernetes/001.5-kube-scheduler.md
 [kube-proxy]: /kubernetes/001.6-kube-proxy.md
 [Cluster Installation Overview]: /kubernetes/002.0-cluster-installation-overview.md
-[Local Virtual Environment]: /kubernetes/003.0-local-virtual-environment.md
-[Setup A Virtual Environment]: /kubernetes/003.1-setup-a-virtual-environment.md
+[Local Virtual Environment]: /kubernetes/003.0-virtual-environments.md
+[Setup Local Virtual Environment]: /kubernetes/003.1-setup-local-virtual-environment.md
 [Install containerd]: /kubernetes/003.2-install-containerd.md
 [Install Kubernetes Packages]: /kubernetes/003.3-install-kubernetes-packages.md
 [Manual Cluster Install]: /kubernetes/004.0-manual-cluster-install.md
