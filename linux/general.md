@@ -83,7 +83,30 @@ do
 done <optional>
 ```
 
-## Reading input
+## Send Output to File and Stdout
+
+```shell
+echo "Salam" | tee -a /var/log/worker.log
+```
+
+## Vim
+
+Run one of these commands inside your active Vim session by pressing `:`
+followed by the command:
+
+* `:set mouse=` – Completely disables Vim's mouse handling. The terminal will
+  regain control of the mouse, letting you highlight and copy text natively.
+* `:set mouse-=a` – Removes mouse support from all modes. (Note: This may not
+  work on certain modern Debian/Ubuntu-based distributions where default
+  configurations override it).
+
+Or you can disable Visual Mode permanently in `vi ~/.vimrc`.
+
+```text
+set mouse=
+```
+
+NOTE: You can hold the "SHIFT" key to temporarily use the mouse to copy text.
 
 ---
 

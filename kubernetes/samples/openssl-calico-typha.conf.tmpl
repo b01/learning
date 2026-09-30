@@ -1,0 +1,107 @@
+[ common_sans ]
+DNS.1 = localhost
+DNS.2 = control-plane-01
+DNS.3 = control-plane
+IP.1  = 127.0.0.1
+IP.2  = ::1
+IP.3  = ${IPV4}
+IP.4  = ${IPV6}
+
+
+[ server_client_ext ]
+basicConstraints = critical, CA:FALSE
+extendedKeyUsage = serverAuth, clientAuth
+keyUsage         = critical, digitalSignature, keyEncipherment
+subjectAltName   = @common_sans
+
+[ etcd ]
+default_bits       = 2048
+default_md         = sha256
+distinguished_name = etcd_dn
+prompt             = no
+x509_extensions    = etcd_ext
+
+[ etcd_dn ]
+CN = etcd-ca
+
+[ etcd_ext ]
+basicConstraints = critical, CA:TRUE
+keyUsage         = critical, digitalSignature, keyEncipherment, cRLSign, keyCertSign
+subjectAltName   = @etcd_sans
+
+[ etcd_sans ]
+DNS.1 = etcd-ca
+DNS.2 = localhost
+DNS.3 = control-plane-01
+DNS.4 = control-plane
+IP.1  = 127.0.0.1
+IP.2  = ::1
+IP.3  = ${IPV4}
+IP.4  = ${IPV6}
+
+[ healthcheck-client ]
+default_bits       = 2048
+default_md         = sha256
+distinguished_name = healthcheck-client_dn
+prompt             = no
+x509_extensions    = healthcheck-client_ext
+
+[ healthcheck-client_dn ]
+CN = kube-etcd-healthcheck-client
+
+[ healthcheck-client_ext ]
+basicConstraints = critical, CA:FALSE
+extendedKeyUsage = clientAuth
+keyUsage         = critical, digitalSignature, keyEncipherment
+
+[ peer ]
+default_bits       = 2048
+default_md         = sha256
+distinguished_name = peer_dn
+prompt             = no
+req_extensions     = server_client_ext
+
+[ peer_dn ]
+CN = control-plane-01
+
+[ server ]
+default_bits       = 2048
+default_md         = sha256
+distinguished_name = server_dn
+prompt             = no
+req_extensions     = server_client_ext
+
+[ server_dn ]
+CN = control-plane-01
+
+# A client certificate for the kube-apiserver to connect to etcd server securely.
+
+[ apiserver-etcd-client ]
+distinguished_name = apiserver-etcd-client_dn
+prompt             = no
+req_extensions     = apiserver-etcd-client_ext
+
+[ apiserver-etcd-client_dn ]
+CN = kube-apiserver-etcd-client
+
+[ apiserver-etcd-client_ext ]
+basicConstraints = critical, CA:FALSE
+extendedKeyUsage = clientAuth
+keyUsage         = critical, digitalSignature, keyEncipherment
+subjectAltName   = @common_sans
+
+# A client certificate for Calico CNI addon to connect to the etcd server securely.
+
+[ calico-etcd-client ]
+distinguished_name = calico-etcd-client_dn
+prompt             = no
+req_extensions     = calico-etcd-client_ext
+
+[ calico-etcd-client_dn ]
+CN = calico-node-etcd-client
+
+[ calico-etcd-client_ext ]
+basicConstraints = critical, CA:FALSE
+extendedKeyUsage = clientAuth
+keyUsage         = critical, digitalSignature, keyEncipherment
+subjectAltName   = @common_sans
